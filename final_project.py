@@ -26,14 +26,14 @@ st.set_page_config(layout="wide")
 st.sidebar.header('Analyzing Pittsburgh\'s Trees')
 st.sidebar.markdown('05839 INTERACTIVE DATA SCIENCE| FALL 2021')
 st.markdown(
-    f'''
-        <style>
-            .sidebar .sidebar-content {{
-                width: 375px;
-            }}
-        </style>
-    ''',
-    unsafe_allow_html=True
+	f'''
+		<style>
+			.sidebar .sidebar-content {{
+				width: 375px;
+			}}
+		</style>
+	''',
+	unsafe_allow_html=True
 )
 
 combined_data = pd.read_csv("cleaned_data/tree_density_data.csv")
@@ -50,30 +50,29 @@ sns.heatmap(corrMatrix, annot=True)
 st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
-c1, c2 = st.columns((1, 4))
+category = st.radio("Select a category to display", ('Overall Tree Benefit', 'Average Stromwater Benefit', \
+	'Average Property Value Benefit', 'Average Energy (Electricity) Benefit','Average Energy (Gas) Benefit',\
+	'Average CO2 Benefit','Average Air Quality Benefit'))
+st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 
+c1, c2 = st.columns((1, 1))
 with c1:
-	category = st.radio("Select a category to display", ('Average Tree Density', 'Overall Tree Benefit', 'Average Stromwater Benefit', \
-		'Average Property Value Benefit', 'Average Energy (Electricity) Beneift','Average Energy (Gas) Beneift',\
-		'Average CO2 Benefit','Average Air Quality Benefit'))
+	tree_density_map = combined_data[['neighborhood', 'tree_count']].copy()
+	fig=px.choropleth(tree_density_map,
+				 geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
+				 featureidkey='properties.name',   
+				 locations='neighborhood',        #column in dataframe
+				 color='tree_count',
+				  color_continuous_scale='greens',
+				   title='Average Tree Density (trees per acre) across Neighborhoods',  
+				   height=500,
+				   width=1250
+				  )
+	fig.update_geos(fitbounds="locations", visible=False)
+	st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
 with c2:
-	if category == "Average Tree Density":
-		tree_density_map = combined_data[['neighborhood', 'tree_count']].copy()
-		fig=px.choropleth(tree_density_map,
-					 geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
-					 featureidkey='properties.name',   
-					 locations='neighborhood',        #column in dataframe
-					 color='tree_count',
-					  color_continuous_scale='greens',
-					   title='Average Tree Density (trees per acre) across Neighborhoods',  
-					   height=500,
-					   width=1250
-					  )
-		fig.update_geos(fitbounds="locations", visible=False)
-		st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
-
-	elif category == "Overall Tree Benefit":
+	if category == "Overall Tree Benefit":
 		overall_benefit_map = combined_data[['neighborhood', 'overall_benefits_dollar_value']].copy()
 		fig=px.choropleth(overall_benefit_map,
 				 geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
@@ -455,8 +454,8 @@ with c1:
 
 	specific_trees_to_plot_bar_plot = sns.barplot(x=specific_trees_to_plot["common_name"], y=specific_trees_to_plot[corresponding_cols[selected]])
 	specific_trees_to_plot_bar_plot.set_xticklabels(specific_trees_to_plot_bar_plot.get_xticklabels(), 
-	                          rotation=90, 
-	                          horizontalalignment='right')
+							  rotation=90, 
+							  horizontalalignment='right')
 
 	title = tree_family + " Tree " + "Family"
 	specific_trees_to_plot_bar_plot.set_xlabel(title, fontsize = 12)
@@ -481,10 +480,89 @@ st.write("Tree themselves are definitely interesting and worth understanding, es
 	they can offer. However, one aspect that is worth investigating is that are tree's benefits enjoyed equally")
 
 factor = st.radio("Select a factor", ('Median Home Value', 'Population Density', 'Industrial Area', \
-	'Commercial Area', 'Education'))
+	'Commercial Area', 'Education', 'Crime Rate'))
 st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 
 complete_data = pd.read_csv("cleaned_data/neighborhood_features_data.csv")
+
+
+raw_df_trees = pd.read_csv("cleaned_data/cleaned_tree_data_5.csv", encoding="ISO-8859-1", low_memory=False)
+df_trees = raw_df_trees[(raw_df_trees['common_name'] != 'Stump') & 
+					   (raw_df_trees['scientific_name'] != 'Stump') &
+					   (raw_df_trees['common_name'] != 'Vacant Site Small') & 
+					   (raw_df_trees['common_name'] != 'Vacant Site Medium') & 
+					   (raw_df_trees['common_name'] != 'Vacant Site Not Suitable') & 
+					   (raw_df_trees['common_name'] != 'Vacant Site Large')]
+
+df_trees['tree_count'] = 1
+
+df_tree_density = df_trees[['neighborhood', 'tree_count', 'stormwater_benefits_dollar_value', 
+							'property_value_benefits_dollarvalue', 'energy_benefits_electricity_dollar_value', 
+							'energy_benefits_gas_dollar_value', 'air_quality_benfits_total_dollar_value', 
+						   'co2_benefits_dollar_value', 'overall_benefits_dollar_value', ]]
+
+
+convert_dict = {'stormwater_benefits_dollar_value': float,
+				'property_value_benefits_dollarvalue': float,
+				'energy_benefits_electricity_dollar_value': float,
+				'energy_benefits_gas_dollar_value': float,
+				'air_quality_benfits_total_dollar_value': float,
+				'co2_benefits_dollar_value': float,
+				'overall_benefits_dollar_value': float
+			   }
+df_tree_density = df_tree_density.astype(convert_dict)
+df_tree_density = df_tree_density.groupby('neighborhood', as_index=False).agg({"tree_count": "sum", 
+															"stormwater_benefits_dollar_value": "sum",
+															"property_value_benefits_dollarvalue": "sum",
+															"energy_benefits_electricity_dollar_value": "sum",
+															"energy_benefits_gas_dollar_value": "sum",
+															"air_quality_benfits_total_dollar_value": "sum",
+															"co2_benefits_dollar_value": "sum",
+															"overall_benefits_dollar_value": "sum"})
+
+
+neighborhood_data = pd.read_csv("cleaned_data/neighborhood_data.csv", encoding="ISO-8859-1", dtype='unicode')
+
+neighborhood_data_area = neighborhood_data[['SNAP_All_csv_Neighborhood', 'Neighborhood_2010_AREA',
+											'Neighborhood_2010_ACRES', 'Pop__2010', 'SNAP_All_csv__Part_1__Major_Cri',
+											'SNAP_All_csv_Landslide_Prone___', 'SNAP_All_csv_Flood_Plain____lan',
+										   'Est__Percent_Under_Poverty__201', 'SNAP_All_csv_2009_Median_Income']].copy()
+
+neighborhood_data_area['SNAP_All_csv_Landslide_Prone___'] = neighborhood_data_area['SNAP_All_csv_Landslide_Prone___'].str[:-1]
+
+neighborhood_data_area['SNAP_All_csv_Flood_Plain____lan'] = neighborhood_data_area['SNAP_All_csv_Flood_Plain____lan'].str[:-1]
+
+neighborhood_data_area['Est__Percent_Under_Poverty__201'] = neighborhood_data_area['Est__Percent_Under_Poverty__201'].str[:-1]
+
+neighborhood_data_area.rename({'SNAP_All_csv_Neighborhood': 'neighborhood'}, axis=1, inplace=True)
+
+neighborhood_convert_dict = {'Neighborhood_2010_AREA': float,
+							 'Neighborhood_2010_ACRES': float,
+							 'Pop__2010': float,
+							 'SNAP_All_csv__Part_1__Major_Cri': float,
+							 'SNAP_All_csv_Landslide_Prone___': float,
+							 'SNAP_All_csv_Flood_Plain____lan': float,
+							 'Est__Percent_Under_Poverty__201': float,
+							 'SNAP_All_csv_2009_Median_Income': float
+							}
+
+neighborhood_data_area = neighborhood_data_area.astype(neighborhood_convert_dict)
+
+
+combined_data = df_tree_density.merge(neighborhood_data_area, on='neighborhood', how='left')
+print(combined_data.columns)
+
+combined_data[['tree_count', 'stormwater_benefits_dollar_value', 'property_value_benefits_dollarvalue', 
+			   'energy_benefits_electricity_dollar_value', 'energy_benefits_gas_dollar_value',
+			  'air_quality_benfits_total_dollar_value', 'co2_benefits_dollar_value', 'overall_benefits_dollar_value',
+			   'Pop__2010', 'SNAP_All_csv__Part_1__Major_Cri']] = combined_data[['tree_count', 'stormwater_benefits_dollar_value', 'property_value_benefits_dollarvalue', 
+			   'energy_benefits_electricity_dollar_value', 'energy_benefits_gas_dollar_value',
+			  'air_quality_benfits_total_dollar_value', 'co2_benefits_dollar_value', 'overall_benefits_dollar_value',
+			   'Pop__2010', 'SNAP_All_csv__Part_1__Major_Cri']].div(combined_data.Neighborhood_2010_ACRES, axis=0)
+
+
+print(combined_data.columns)
+
 fig, ax = plt.subplots()
 
 if factor == "Median Home Value":
@@ -494,41 +572,180 @@ if factor == "Median Home Value":
 
 	plot = sns.regplot(x = 'area_norm_tree_count', y = 'median_home_value', data = home_value_data)
 	plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Median Home Value ($)", 
-	         title = "Relationship between Median Home Value and Number of Trees \nin Neighborhoods across Pittsburgh")
+			 title = "Relationship between Median Home Value and Number of Trees \nin Neighborhoods across Pittsburgh")
 	st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
 elif factor == "Population Density":
 	plot = sns.regplot(x = 'area_norm_tree_count', y = 'population_density', data = complete_data)
 	plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Population Density",
-	         title = "Population Density vs Number of Trees")
+			 title = "Population Density vs Number of Trees")
 	st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
 elif factor == "Industrial Area":
 	plot = sns.regplot(x = 'area_norm_tree_count', y = 'per_industrial_area', data = complete_data)
 	plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Percentage Industrial Area",
-	         title = "Percentage Industrial Area vs Number of Trees")
+			 title = "Percentage Industrial Area vs Number of Trees")
 	st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
 elif factor == "Commercial Area":
 	plot = sns.regplot(x = 'area_norm_tree_count', y = 'per_commercial_area', data = complete_data)
 	plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Percentage Commercial Area",
-	         title = "Percentage Commercial Area vs Number of Trees")
+			 title = "Percentage Commercial Area vs Number of Trees")
 	st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
 elif factor == "Education":
 	plot = sns.regplot(x = 'area_norm_tree_count', y = 'per_diploma', data = complete_data)
 	plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Percentage High School Diplomas",
-	         title = "Percentage High School Diplomas vs Number of Trees")
+			 title = "Percentage High School Diplomas vs Number of Trees")
+	st.pyplot(fig, use_container_width=True, sharing='streamlit')
+
+elif factor == "Crime Rate":
+	#crime_rate_density_map = combined_data[['neighborhood', 'SNAP_All_csv__Part_1__Major_Cri']].copy()
+	plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv__Part_1__Major_Cri', data = combined_data)
+	plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Crime Rate(Normalized by Area)",
+	title = "Crime Rate vs Number of Trees")
 	st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
+st.write("Tree Density and Environmental/Climatic Factors")
+
+env_factor = st.radio("Select a factor", ('Landslide Prone', 'Flooding Prone'))
+st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
+fig, ax = plt.subplots()
+
+print(combined_data.head(5))
+
+c1, c2 = st.columns((1, 1))
+
+with c1:
+	if env_factor == "Landslide Prone":
+		#landslide_map = combined_data[['neighborhood', 'SNAP_All_csv_Landslide_Prone___']].copy()
+		plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv_Landslide_Prone___', data = combined_data)
+		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Landslide susceptibility",
+		title = "Landslide susceptibility vs Number of Trees")
+		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+
+	elif env_factor == "Flooding Prone":
+		#flooding_map = combined_data[['neighborhood', 'SNAP_All_csv_Flood_Plain____lan']].copy()
+		plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv_Flood_Plain____lan', data = combined_data)
+		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Flooding susceptibility",
+		title = "Flooding susceptibility vs Number of Trees")
+		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+with c2:
+	if env_factor == "Landslide Prone":
+		landslide_map = combined_data[['neighborhood', 'SNAP_All_csv_Landslide_Prone___']].copy()
+		fig=px.choropleth(landslide_map,
+					 geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
+					 featureidkey='properties.name',   
+					 locations='neighborhood',        #column in dataframe
+					 color='SNAP_All_csv_Landslide_Prone___',
+					  color_continuous_scale='brwnyl',
+					   title='Landslide susceptibility across Neighborhoods' ,  
+					   height=500
+					  )
+		fig.update_geos(fitbounds="locations", visible=False)
+		fig.layout.coloraxis.colorbar.title = "susceptibility"
+		st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
+
+	elif env_factor == "Flooding Prone":
+		flooding_map = combined_data[['neighborhood', 'SNAP_All_csv_Flood_Plain____lan']].copy()
+		fig=px.choropleth(flooding_map,
+					 geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
+					 featureidkey='properties.name',   
+					 locations='neighborhood',        #column in dataframe
+					 color='SNAP_All_csv_Flood_Plain____lan',
+					  color_continuous_scale='blues',
+					   title='Flooding susceptibility across Neighborhoods' ,  
+					   height=500
+					  )
+		fig.update_geos(fitbounds="locations", visible=False)
+		fig.layout.coloraxis.colorbar.title = "susceptibility"
+		st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
+
+
+st.write("Correlating tree stumps and vacant sites with different socio-economic factors")
+df_stump_vacant = raw_df_trees[(raw_df_trees['common_name'] == 'Stump') | 
+					   (raw_df_trees['scientific_name'] == 'Stump') |
+					   (raw_df_trees['common_name'] == 'Vacant Site Small') | 
+					   (raw_df_trees['common_name'] == 'Vacant Site Medium') | 
+					   (raw_df_trees['common_name'] == 'Vacant Site Not Suitable') | 
+					   (raw_df_trees['common_name'] == 'Vacant Site Large')]
+
+df_stump_vacant['tree_count'] = 1
+df_stump_density = df_stump_vacant[['neighborhood', 'tree_count', 'stormwater_benefits_dollar_value', 
+							'property_value_benefits_dollarvalue', 'energy_benefits_electricity_dollar_value', 
+							'energy_benefits_gas_dollar_value', 'air_quality_benfits_total_dollar_value', 
+						   'co2_benefits_dollar_value', 'overall_benefits_dollar_value', ]] 
+df_stump_density = df_stump_density.astype(convert_dict)
+df_stump_density = df_stump_density.groupby('neighborhood', as_index=False).agg({"tree_count": "sum", 
+															"stormwater_benefits_dollar_value": "sum",
+															"property_value_benefits_dollarvalue": "sum",
+															"energy_benefits_electricity_dollar_value": "sum",
+															"energy_benefits_gas_dollar_value": "sum",
+															"air_quality_benfits_total_dollar_value": "sum",
+															"co2_benefits_dollar_value": "sum",
+															"overall_benefits_dollar_value": "sum"})
+combined_stump = df_stump_density.merge(neighborhood_data_area, on='neighborhood', how='left')
+combined_stump[['tree_count', 'stormwater_benefits_dollar_value', 'property_value_benefits_dollarvalue', 
+			   'energy_benefits_electricity_dollar_value', 'energy_benefits_gas_dollar_value',
+			  'air_quality_benfits_total_dollar_value', 'co2_benefits_dollar_value', 'overall_benefits_dollar_value',
+			   'Pop__2010', 'SNAP_All_csv__Part_1__Major_Cri']] = combined_stump[['tree_count', 'stormwater_benefits_dollar_value', 'property_value_benefits_dollarvalue', 
+			   'energy_benefits_electricity_dollar_value', 'energy_benefits_gas_dollar_value',
+			  'air_quality_benfits_total_dollar_value', 'co2_benefits_dollar_value', 'overall_benefits_dollar_value',
+			   'Pop__2010', 'SNAP_All_csv__Part_1__Major_Cri']].div(combined_stump.Neighborhood_2010_ACRES, axis=0)
+
+
+stump_density_map = combined_stump[['neighborhood', 'tree_count']].copy()
+fig=px.choropleth(stump_density_map,
+             geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
+             featureidkey='properties.name',   
+             locations='neighborhood',        #column in dataframe
+             color='tree_count',
+              color_continuous_scale='greens',
+               title='Average Stump/Vacant Sites Density across Neighborhoods' ,  
+               height=500
+              )
+fig.update_geos(fitbounds="locations", visible=False)
+fig.layout.coloraxis.colorbar.title = "count"
+st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
 
 
+stump_factor = st.radio("Select a factor", ('Population Density', 'Crime Rate', 'Median Income','Percentage of the Population Under Poverty'))
+st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
+fig, ax = plt.subplots()
+
+
+if stump_factor == "Population Density":
+	plot = sns.regplot(x = 'tree_count', y = 'Pop__2010', data = combined_stump)
+	plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Population Density",
+	title = "Population Density vs Number of Stumps/Vacant sites")
+	st.pyplot(fig, use_container_width=True, sharing='streamlit')
+
+
+elif stump_factor == "Crime Rate":
+	plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv__Part_1__Major_Cri', data = combined_stump)
+	plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Crime Rate(Normalized by Area)",
+	title = "Crime Rate vs Number of Stumps/Vacant sites")	
+	st.pyplot(fig, use_container_width=True, sharing='streamlit')
+
+
+elif stump_factor == "Median Income":
+	plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv_2009_Median_Income', data = combined_stump)
+	plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Median income",
+	title = "Median income vs Number of Stumps/Vacant sites")	
+	st.pyplot(fig, use_container_width=True, sharing='streamlit')
+
+
+elif stump_factor == "Percentage of the Population Under Poverty":
+	plot = sns.regplot(x = 'tree_count', y = 'Est__Percent_Under_Poverty__201', data = combined_stump)
+	plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Percentage population under poverty",
+	title = "Crime Rate vs Number of Stumps/Vacant sites")	
+	st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
 
