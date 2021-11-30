@@ -28,6 +28,7 @@ from matplotlib.colors import LogNorm, Normalize
 def write():
 	#st.header("Visualizations")
 	st.header("Tree Characteristics")
+	st.write("To start with our analysis we explore the tree characteristics across Pittsburgh. We analyze the average tree height and average tree width across the neighborhoods in Pittsburgh.")
 	sns.set()
 	df_trees = pd.read_csv("cleaned_data/cleaned_tree_data_5.csv", encoding="ISO-8859-1", low_memory=False)
 	option = st.selectbox('Choose a Tree Characteristics',('Height', 'Width'))
@@ -64,6 +65,7 @@ def write():
 	groupBySpeciesAndNeighborhood = df_trees.groupby(['neighborhood','common_name'])['id'].count()
 	groupBySpeciesAndNeighborhood = groupBySpeciesAndNeighborhood.to_frame().reset_index()
 	prevalent_species = groupBySpeciesAndNeighborhood.loc[groupBySpeciesAndNeighborhood.groupby(['neighborhood'])['id'].idxmax()].reset_index(drop=True)
+	st.write("We also observe that different tree species have different distributions across various neighborhoods. We determine the most prevalent tree species for each neighborhood and observe the distribution. We notice that some nearby neighborhoods have the same most prevalent tree species.")
 	fig=px.choropleth(prevalent_species,
 			 geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
 			 featureidkey='properties.name',   
@@ -76,6 +78,7 @@ def write():
 	fig.update_geos(fitbounds="locations", visible=False)
 	st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 	st.header("Distribution of Species across Neighborhood")
+	st.write("We observed a wide variety of tree species across Pittsburgh. We noticed that the benefits provided by the trees were dependent on the tree species. Given that certain species provided more environmental benefits compared to other tree species, we analyzed the trends in the distribution of tree species across neighborhoods within Pittsburgh. Here we analyze the number of trees of a selected species (and even stumps and vacant sites) across the neighborhoods.")
 	df_trees_thresh = df_trees.groupby(['common_name'])['id'].count()
 	df_trees_thresh1 = df_trees_thresh.to_frame().reset_index()
 	df_trees_thresh1 = df_trees_thresh1.sort_values(by=['id'], ascending = False)
@@ -142,36 +145,37 @@ def write():
 						'CO2 Benefit':"co2_benefits_dollar_value",'Overall Benefit':"overall_benefits_dollar_value"}
 
 	top_k = st.slider('Select Top K Species', 10, 30, 15)
-
-	fig, ax = plt.subplots(figsize=(3, 3))
+	sns.set()
+	fig, ax = plt.subplots(figsize=(4, 2))
 	graph_data = tree_stat.sort_values([(corresponding_cols[option],"mean")])
 	graph_data = graph_data.tail(top_k)
 	plot = sns.barplot(x=graph_data["common_name"], y=graph_data[corresponding_cols[option]]["mean"],color="limegreen")
 	plot.set_xticklabels(plot.get_xticklabels(), 
 						  rotation=90, 
 						  horizontalalignment='right')
-	ax.tick_params(axis='both', which='major', labelsize=6)
-	ax.tick_params(axis='both', which='minor', labelsize=6)
+	ax.tick_params(axis='both', which='major', labelsize=4)
+	ax.tick_params(axis='both', which='minor', labelsize=4)
+	label_font_size = 6
 
 	if option == "Storm Water Benefit":
-		plot.set_xlabel("Tree Species", fontsize = 12)
-		plot.set_ylabel("Average Stormwater Benefit in Dollar Value", fontsize = 12)
+		plot.set_xlabel("Tree Species", fontsize = label_font_size)
+		plot.set_ylabel("Average Stormwater Benefit in Dollar Value", fontsize = label_font_size)
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 	elif option == 'Property Value Benefit':
-		plot.set_xlabel("Tree Species", fontsize = 12)
-		plot.set_ylabel("Average Property Benefit in Dollar Value", fontsize = 12)
+		plot.set_xlabel("Tree Species", fontsize = label_font_size)
+		plot.set_ylabel("Average Property Benefit in Dollar Value", fontsize = label_font_size)
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 	elif option == 'Electricity Saving Benefit':
-		plot.set_xlabel("Tree Species", fontsize = 12)
-		plot.set_ylabel("Average Energy (Electricity) Benefit in Dollar Value", fontsize = 12)
+		plot.set_xlabel("Tree Species", fontsize = label_font_size)
+		plot.set_ylabel("Average Energy (Electricity) Benefit in Dollar Value", fontsize = label_font_size)
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
 	elif option == 'Gas Saving Benefit':
-		plot.set_xlabel("Tree Species", fontsize = 12)
-		plot.set_ylabel("Average Energy (Gas) Benefit in Dollar Value", fontsize = 12)
+		plot.set_xlabel("Tree Species", fontsize = label_font_size)
+		plot.set_ylabel("Average Energy (Gas) Benefit in Dollar Value", fontsize = label_font_size)
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 	elif option == "Air Quality Benefit":
@@ -196,8 +200,8 @@ def write():
 			no2_air_quality_total_benefit.set_xticklabels(no2_air_quality_total_benefit.get_xticklabels(), 
 								rotation=90, 
 								horizontalalignment='right')
-			no2_air_quality_total_benefit.set_xlabel("Tree Species", fontsize = 12)
-			no2_air_quality_total_benefit.set_ylabel("Average NO2 Decomposition Benefit in Dollar Value", fontsize = 12)
+			no2_air_quality_total_benefit.set_xlabel("Tree Species", fontsize = label_font_size)
+			no2_air_quality_total_benefit.set_ylabel("Average NO2 Decomposition Benefit in Dollar Value", fontsize = label_font_size)
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 		elif pollutant == "SO2":
@@ -207,8 +211,8 @@ def write():
 			so2_air_quality_total_benefit.set_xticklabels(so2_air_quality_total_benefit.get_xticklabels(), 
 									rotation=90, 
 									horizontalalignment='right')
-			so2_air_quality_total_benefit.set_xlabel("Tree Species", fontsize = 12)
-			so2_air_quality_total_benefit.set_ylabel("Average SO2 Decomposition Benefit in Dollar Value", fontsize = 12)
+			so2_air_quality_total_benefit.set_xlabel("Tree Species", fontsize = label_font_size)
+			so2_air_quality_total_benefit.set_ylabel("Average SO2 Decomposition Benefit in Dollar Value", fontsize = label_font_size)
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 		elif pollutant == "PM10":
@@ -219,25 +223,25 @@ def write():
 			pm10_air_quality_total_benefit.set_xticklabels(pm10_air_quality_total_benefit.get_xticklabels(), 
 									rotation=90, 
 									horizontalalignment='right')
-			pm10_air_quality_total_benefit.set_xlabel("Tree Species", fontsize = 12)
-			pm10_air_quality_total_benefit.set_ylabel("Average SO2 Decomposition Benefit in Dollar Value", fontsize = 12)
+			pm10_air_quality_total_benefit.set_xlabel("Tree Species", fontsize = label_font_size)
+			pm10_air_quality_total_benefit.set_ylabel("Average SO2 Decomposition Benefit in Dollar Value", fontsize = label_font_size)
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 		elif pollutant == "Overall":
-			plot.set_xlabel("Tree Species", fontsize = 12)
-			plot.set_ylabel("Average Overall Air Quality Benefit in Dollar Value", fontsize = 12)
+			plot.set_xlabel("Tree Species", fontsize = label_font_size)
+			plot.set_ylabel("Average Overall Air Quality Benefit in Dollar Value", fontsize = label_font_size)
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
 	elif option == "CO2 Benefit":
-		plot.set_xlabel("Tree Species", fontsize = 12)
-		plot.set_ylabel("Average CO2 Benefit in Dollar Value", fontsize = 12)
+		plot.set_xlabel("Tree Species", fontsize = label_font_size)
+		plot.set_ylabel("Average CO2 Benefit in Dollar Value", fontsize = label_font_size)
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 	elif option == "Overall Benefit":
 
-		plot.set_xlabel("Tree Species", fontsize = 12)
-		plot.set_ylabel("Average Overall Benefit in Dollar Value", fontsize = 12)
+		plot.set_xlabel("Tree Species", fontsize = label_font_size)
+		plot.set_ylabel("Average Overall Benefit in Dollar Value", fontsize = label_font_size)
 
 		for bar in plot.patches:
 			if bar.get_height() > 225:
@@ -256,7 +260,8 @@ def write():
 
 
 
-	st.header("Tree-family benefits and intra-group comparison")
+	st.header("Tree-family Benefits and Intra-group Comparison")
+	st.write("After examining the tree species specific benefits, we observed that certain tree families exhibited similar benefits. To understand the similarities and differences between similar tree species we group the species by tree families and analyze the benefits of the tree species within a tree family.")
 	tree_family = st.radio("Select a tree-family", ('Oak', 'Maple', 'Elm', 'Ash','Magnolia', 'Beech'))
 	st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 
@@ -295,10 +300,18 @@ def write():
 
 	with c2:
 		fig, ax = plt.subplots()
-		tree_group = specific_trees_to_plot.groupby("common_name").agg('mean')
-		grouped_plot = sns.heatmap(tree_group[["stormwater_benefits_dollar_value","property_value_benefits_dollarvalue",\
-			"energy_benefits_electricity_dollar_value","energy_benefits_gas_dollar_value","air_quality_benfits_total_dollar_value",\
-			"co2_benefits_dollar_value", "overall_benefits_dollar_value"]], annot= True, fmt='g', xticklabels = True, \
+		specific_trees_to_plot = specific_trees_to_plot.rename(columns={"common_name": "Common Name",
+										"stormwater_benefits_dollar_value":"Stormwater Benefits Dollar Value",
+										"property_value_benefits_dollarvalue":"Property Value Benefits Dollar Value",
+										"energy_benefits_electricity_dollar_value":"Energy Benefits Electricity Dollar Value",
+										"energy_benefits_gas_dollar_value":"Energy Benefits Gas Dollar Value",
+										"air_quality_benfits_total_dollar_value":"Air Quality Benefits Total Dollar Value",
+										"co2_benefits_dollar_value":"CO2 Benefits Dollar Value",
+										"overall_benefits_dollar_value":"Overall Benefits Dollar Value"})
+		tree_group = specific_trees_to_plot.groupby("Common Name").agg('mean')
+		grouped_plot = sns.heatmap(tree_group[["Stormwater Benefits Dollar Value","Property Value Benefits Dollar Value",\
+			"Energy Benefits Electricity Dollar Value","Energy Benefits Gas Dollar Value","Air Quality Benefits Total Dollar Value",\
+			"CO2 Benefits Dollar Value", "Overall Benefits Dollar Value"]], annot= True, fmt='.1f', xticklabels = True, \
 			yticklabels = True, cmap = 'Greens', norm=LogNorm())
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
