@@ -18,7 +18,7 @@ def write():
     """,
     unsafe_allow_html=True)
 
-st.header("Datasets")
+st.header("About the Datasets")
 
 st.write("The main dataset that we explored is the \"City of Pittsburgh Trees\" dataset found from Western \
         Pennsylvania Regional Data Center: https://data.wprdc.org/dataset/city-trees. It contains \
