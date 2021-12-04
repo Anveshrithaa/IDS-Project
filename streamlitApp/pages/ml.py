@@ -46,9 +46,9 @@ def write():
 	pipe = pickle.load(open(model_file,"rb"))
 	col1, _, col2, _ = st.columns([6, 1, 4, 1])
 	with col1:
-		per_master = st.slider('Percentage of Individuals with Masters Degrees:', 0.0, 100.0, 5.0)
 		per_bachelor = st.slider('Percentage of Individuals with Bachelors Degrees:', 0.0, 100.0, 10.0)
 		per_commercial = st.slider('Percentage of Commercial Area:', 0.0, 100.0, 15.0)
+		per_master = st.slider('Percentage of Individuals with Masters Degrees:', 0.0, 100.0, 5.0)
 		median_home_value = st.number_input('Median Home Value ($):', min_value = 0.0, value = 10000.0)
 		pop_density = st.number_input('Number of Individuals per Square Mile:', min_value = 0.0, value = 2000.0)
 	with col2:    
