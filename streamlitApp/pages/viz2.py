@@ -65,8 +65,8 @@ def write():
 	st.write(" ")
 	st.write("**Exploring the correlation between tree density and different socio-economic factors**")
 
-	factor = st.radio("Select a factor", ('Median Home Value', 'Population Density', 'Industrial Area', \
-		'Commercial Area', 'Education', 'Crime Rate'))
+	# factor = st.radio("Select a factor", ('Median Home Value', 'Population Density', 'Industrial Area', \
+	# 	'Commercial Area', 'Education', 'Crime Rate'))
 	st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 
 	complete_data = pd.read_csv("cleaned_data/neighborhood_features_data.csv")
@@ -146,60 +146,76 @@ def write():
 				   'Pop__2010', 'SNAP_All_csv__Part_1__Major_Cri']].div(combined_data.Neighborhood_2010_ACRES, axis=0)
 
 
-	fig, ax = plt.subplots()
 
-	if factor == "Median Home Value":
+	with st.expander("Median Home Value", expanded=True):
 		home_value_data = complete_data[['median_home_value', 'area_norm_tree_count', 'area_norm_overall_benefits_dollar_value']]
 		# remove rows where median_home_value is 0
 		home_value_data = home_value_data[home_value_data['median_home_value'] != 0]
-
+		fig, ax = plt.subplots()
 		plot = sns.regplot(x = 'area_norm_tree_count', y = 'median_home_value', data = home_value_data)
 		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Median Home Value ($)", 
 				 title = "Relationship between Median Home Value and Number of Trees \nin Neighborhoods across Pittsburgh")
-		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		_, c, _ = st.columns((1, 8, 1))
+		with c:
+			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 		st.write("We observe a slight positive correlation between the median home value and the tree density. This is expected due to the several inter-related benefits that trees convey, including physical and visual amenity, shade provision, air quality improvement, noise abatement, and increased biodiversity.")
 		st.write("In fact, a Philadelphia-based study demonstrated that properties close to new tree plantings increased in price by about 10% (Wachter and Gillen, 2006). That meant an additional $30,000 USD for the average house price.")
 
 
-	elif factor == "Population Density":
+	with st.expander("Population Density"):
+		fig, ax = plt.subplots()
 		plot = sns.regplot(x = 'area_norm_tree_count', y = 'population_density', data = complete_data)
 		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Population Density",
 				 title = "Population Density vs Number of Trees")
-		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		_, c, _ = st.columns((1, 8, 1))
+		with c:
+			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 		st.write(
 			"We observe a slight positive correlation between the population density and the tree density. "
 			"Given that Pittsburgh is an urban city without much forest cover, we believe this is due to the fact that efforts are being made in the densely populated areas to increase street tree density. This could also be a result of the increasing trend of urban greening, which is the practise of  realizing a range of socioecological benefits through introducing, conserving, and maintaining outdoor vegetation in urban areas.")
 
 
-	elif factor == "Industrial Area":
+	with st.expander("Industrial Area"):
+		fig, ax = plt.subplots()
 		plot = sns.regplot(x = 'area_norm_tree_count', y = 'per_industrial_area', data = complete_data)
 		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Percentage Industrial Area",
 				 title = "Percentage Industrial Area vs Number of Trees")
-		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		_, c, _ = st.columns((1, 8, 1))
+		with c:
+			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 		st.write("In this plot, we do not see any correlation between the tree density and the percentage of industrial area. However, we do notice that there are no regions with high percentage of industrial area and high tree density. This is expected since industrialization often corresponds to cutting down of trees or using barren lands to set up the required infrastructure.")
 
 
-	elif factor == "Commercial Area":
+	with st.expander("Commercial Area"):
+		fig, ax = plt.subplots()
 		plot = sns.regplot(x = 'area_norm_tree_count', y = 'per_commercial_area', data = complete_data)
 		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Percentage Commercial Area",
 				 title = "Percentage Commercial Area vs Number of Trees")
-		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		_, c, _ = st.columns((1, 8, 1))
+		with c:
+			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 		st.write("Interestingly, we do observe a positive correlation between the percentage of commercial areas in a neighborhood and the tree density. This is again could be due to the  increasing trend of urban greening, which is the practise of realizing a range of socioecological benefits through introducing, conserving, and maintaining outdoor vegetation in urban areas.")
 
 
-	elif factor == "Education":
+	with st.expander("Education"):
+		fig, ax = plt.subplots()
 		plot = sns.regplot(x = 'area_norm_tree_count', y = 'per_diploma', data = complete_data)
 		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Percentage High School Diplomas",
 				 title = "Percentage High School Diplomas vs Number of Trees")
-		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		_, c, _ = st.columns((1, 8, 1))
+		with c:
+			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 		st.write("We observe no significant correlation between percentage of high school diplomas in a neighborhood and the tree density.")
 
-	elif factor == "Crime Rate":
+	with st.expander("Crime Rate"):
+		fig, ax = plt.subplots()
 		#crime_rate_density_map = combined_data[['neighborhood', 'SNAP_All_csv__Part_1__Major_Cri']].copy()
 		plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv__Part_1__Major_Cri', data = combined_data)
 		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Crime Rate(Normalized by Area)",
 		title = "Crime Rate vs Number of Trees")
-		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		_, c, _ = st.columns((1, 8, 1))
+		with c:
+			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 		st.write(
 			"Interestingly, we do observe a positive correlation between the crime rate in a neighborhood and the tree density. We believe that this is an indirect effect of the population density being positively correlated with tree density. Though they have not been able to provide any explanation, studies have observed a small but statistically significant positive correlation between population density and property/violence crimes.")
 
