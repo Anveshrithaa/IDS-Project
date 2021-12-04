@@ -37,10 +37,10 @@ def write():
     """,
     unsafe_allow_html=True)
 	st.header("Exploring Trees and Other Neighborhood Factors")
-	st.write("Tree themselves are definitely interesting and worth understanding, especially given the \
-		benefits that they can offer. As we have seen previously, trees do not merely provide visual or\
-		 aesthetic appeals to the neighborhood; they provide real economic, climate, and health benefits \
-		 in the forms of energy-saving, air quality improvement, carbon dioxide capture, and many more.")
+	st.write("Trees themselves are definitely interesting and worth studying, especially given the \
+		benefits that they offer. As seen previously, trees do not just merely provide visual or\
+		 aesthetic appeal to the neighborhood; they provide real economic, climate, and health benefits. \
+		 These benefits are available to humans in the forms of energy-saving, air quality improvement, carbon dioxide capture, and many more.")
 	st.write("According to the non-profit American Forests, trees are more than scenery; instead, they are \
 		 critical infrastructure that every person in every neighborhood deserves. In fact, tree-equality is \
 		 a topic included in President Biden and the Democrat’s 3.5-trillion dollar spending bill proposal. \
@@ -54,7 +54,7 @@ def write():
 	st.write("To answer these questions, we performed some neighborhood-level analysis to get a better insight.")
 
 	st.write(" ")
-	st.write("The first thing we tried to look at is by trying to investigate whether there is any correlation \
+	st.write("The first thing we tried was to investigate whether there is any correlation \
 		between tree density and six different socio-economic factors: median home values, population density, \
 		industrial area, commercial area, education, and crime rate. We used the 2010 census result and the 2015 American \
 		Community Survey results. Among these factors, median home values, crime rate, education can be \
@@ -157,6 +157,8 @@ def write():
 		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Median Home Value ($)", 
 				 title = "Relationship between Median Home Value and Number of Trees \nin Neighborhoods across Pittsburgh")
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		st.write("We observe a slight positive correlation between the median home value and the tree density. This is expected due to the several inter-related benefits that trees convey, including physical and visual amenity, shade provision, air quality improvement, noise abatement, and increased biodiversity.")
+		st.write("In fact, a Philadelphia-based study demonstrated that properties close to new tree plantings increased in price by about 10% (Wachter and Gillen, 2006). That meant an additional $30,000 USD for the average house price.")
 
 
 	elif factor == "Population Density":
@@ -164,6 +166,9 @@ def write():
 		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Population Density",
 				 title = "Population Density vs Number of Trees")
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		st.write(
+			"We observe a slight positive correlation between the population density and the tree density. "
+			"Given that Pittsburgh is an urban city without much forest cover, we believe this is due to the fact that efforts are being made in the densely populated areas to increase street tree density. This could also be a result of the increasing trend of urban greening, which is the practise of  realizing a range of socioecological benefits through introducing, conserving, and maintaining outdoor vegetation in urban areas.")
 
 
 	elif factor == "Industrial Area":
@@ -171,6 +176,7 @@ def write():
 		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Percentage Industrial Area",
 				 title = "Percentage Industrial Area vs Number of Trees")
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		st.write("In this plot, we do not see any correlation between the tree density and the percentage of industrial area. However, we do notice that there are no regions with high percentage of industrial area and high tree density. This is expected since industrialization often corresponds to cutting down of trees or using barren lands to set up the required infrastructure.")
 
 
 	elif factor == "Commercial Area":
@@ -178,6 +184,7 @@ def write():
 		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Percentage Commercial Area",
 				 title = "Percentage Commercial Area vs Number of Trees")
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		st.write("Interestingly, we do observe a positive correlation between the percentage of commercial areas in a neighborhood and the tree density. This is again could be due to the  increasing trend of urban greening, which is the practise of realizing a range of socioecological benefits through introducing, conserving, and maintaining outdoor vegetation in urban areas.")
 
 
 	elif factor == "Education":
@@ -185,6 +192,7 @@ def write():
 		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Percentage High School Diplomas",
 				 title = "Percentage High School Diplomas vs Number of Trees")
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		st.write("We observe no significant correlation between percentage of high school diplomas in a neighborhood and the tree density.")
 
 	elif factor == "Crime Rate":
 		#crime_rate_density_map = combined_data[['neighborhood', 'SNAP_All_csv__Part_1__Major_Cri']].copy()
@@ -192,9 +200,13 @@ def write():
 		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Crime Rate(Normalized by Area)",
 		title = "Crime Rate vs Number of Trees")
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		st.write(
+			"Interestingly, we do observe a positive correlation between the crime rate in a neighborhood and the tree density. We believe that this is an indirect effect of the population density being positively correlated with tree density. Though they have not been able to provide any explanation, studies have observed a small but statistically significant positive correlation between population density and property/violence crimes.")
 
+	st.write(
+		"**Exploring the correlation between tree density and their benefits across neighborhoods**")
 
-	st.write("Then, we wanted to investigate whether other tree benefits are correlated \
+	st.write("Next, we wanted to investigate whether the tree benefits are correlated \
 		with tree density. Are neighborhoods with higher tree density getting on average \
 		more benefits from trees?")
 
@@ -212,11 +224,11 @@ def write():
 		tree_density_map = combined_data_n[['neighborhood', 'tree_count']].copy()
 		fig=px.choropleth(tree_density_map,
 					 geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
-					 featureidkey='properties.name',   
+					 featureidkey='properties.name',
 					 locations='neighborhood',        #column in dataframe
 					 color='tree_count',
 					  color_continuous_scale='greens',
-					   title='Average Tree Density (trees per acre) across Neighborhoods',  
+					   title='Average Tree Density (trees per acre) across Neighborhoods',
 					   height=500,
 					   width=1250
 					  )
@@ -228,11 +240,11 @@ def write():
 			overall_benefit_map = combined_data_n[['neighborhood', 'overall_benefits_dollar_value']].copy()
 			fig=px.choropleth(overall_benefit_map,
 					 geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
-					 featureidkey='properties.name',   
+					 featureidkey='properties.name',
 					 locations='neighborhood',        #column in dataframe
 					 color='overall_benefits_dollar_value',
 					  color_continuous_scale='greens',
-					   title='Average Overall benefit in Dollar Value across Neighborhoods' ,  
+					   title='Average Overall benefit in Dollar Value across Neighborhoods' ,
 					   height=500,
 					   width=1250
 					  )
@@ -337,10 +349,114 @@ def write():
 			fig.update_geos(fitbounds="locations", visible=False)
 			st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
-	st.write("Trees can also provide environmental benefits. We also analyzed whether neighborhoods with \
-		higher tree density are less prone to flooding or landslide.")
+	c3, c4 = st.columns((1, 1))
+
+	with c3:
+		tree_density_map = combined_data_n[
+			['neighborhood', 'tree_count']].copy()
+		table_data = tree_density_map.sort_values('tree_count',
+		                                          ascending=False).head(5)
+		table_data = table_data.rename(columns={"neighborhood": "Neighborhood",
+		                                        "tree_count": "Tree Density"})
+		st.write("Top 5 neighborhoods with Highest Tree Density")
+		st.table(data=table_data)
+
+
+	if category == "Overall Tree Benefit":
+		with c4:
+			overall_benefit_map = combined_data_n[['neighborhood', 'overall_benefits_dollar_value']].copy()
+			table_data = overall_benefit_map.sort_values('overall_benefits_dollar_value', ascending=False).head(5)
+			table_data = table_data.rename(
+				columns={"neighborhood": "Neighborhood",
+				         "overall_benefits_dollar_value": "Overall benefits (USD)"})
+			st.write("Top 5 neighborhoods with highest overall benefits")
+			st.table(data=table_data)
+		st.write("3 of the top 5 neighborhoods with the highest overall benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+
+	elif category == "Average Stromwater Benefit":
+		with c4:
+			stormwater_benefit_map = combined_data_n[['neighborhood', 'stormwater_benefits_dollar_value']].copy()
+			table_data = stormwater_benefit_map.sort_values(
+				'stormwater_benefits_dollar_value', ascending=False).head(5)
+			table_data = table_data.rename(
+				columns={"neighborhood": "Neighborhood",
+				         "stormwater_benefits_dollar_value": "Stormwater benefits (USD)"})
+			st.write("Top 5 neighborhoods with highest stormwater benefits")
+			st.table(data=table_data)
+		st.write("3 of the top 5 neighborhoods with the highest stormwater benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+
+	elif category == "Average Property Value Benefit":
+		with c4:
+			property_value_benefit_map = combined_data_n[['neighborhood', 'property_value_benefits_dollarvalue']].copy()
+			table_data = property_value_benefit_map.sort_values(
+				'property_value_benefits_dollarvalue', ascending=False).head(5)
+			table_data = table_data.rename(
+				columns={"neighborhood": "Neighborhood",
+				         "property_value_benefits_dollarvalue": "Property value benefits (USD)"})
+			st.write("Top 5 neighborhoods with highest property value benefits")
+			st.table(data=table_data)
+		st.write("4 of the top 5 neighborhoods with the highest property value benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+
+
+	elif category == "Average Energy (Electricity) Benefit":
+		with c4:
+			energy_electricity_benefit_map = combined_data_n[['neighborhood', 'energy_benefits_electricity_dollar_value']].copy()
+			table_data = energy_electricity_benefit_map.sort_values(
+				'energy_benefits_electricity_dollar_value', ascending=False).head(5)
+			table_data = table_data.rename(
+				columns={"neighborhood": "Neighborhood",
+				         "energy_benefits_electricity_dollar_value": "Energy (Electricity) benefits (USD)"})
+			st.write("Top 5 neighborhoods with highest energy (electricity) benefits")
+			st.table(data=table_data)
+
+		st.write("3 of the top 5 neighborhoods with the highest energy (electricity) benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+
+	elif category == "Average Energy (Gas) Benefit":
+		with c4:
+			energy_gas_benefit_map = combined_data_n[['neighborhood', 'energy_benefits_gas_dollar_value']].copy()
+			table_data = energy_gas_benefit_map.sort_values(
+				'energy_benefits_gas_dollar_value', ascending=False).head(5)
+			table_data = table_data.rename(
+				columns={"neighborhood": "Neighborhood",
+				         "energy_benefits_gas_dollar_value": "Energy (Gas) benefits (USD)"})
+			st.write("Top 5 neighborhoods with highest energy (gas) benefits")
+			st.table(data=table_data)
+
+		st.write("3 of the top 5 neighborhoods with the highest energy (gas) benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+
+
+	elif category == "Average CO2 Benefit":
+		with c4:
+			co2_benefit_map = combined_data_n[['neighborhood', 'co2_benefits_dollar_value']].copy()
+			table_data = co2_benefit_map.sort_values(
+				'co2_benefits_dollar_value', ascending=False).head(5)
+			table_data = table_data.rename(
+				columns={"neighborhood": "Neighborhood",
+				         "co2_benefits_dollar_value": "CO2 benefits (USD)"})
+			st.write("Top 5 neighborhoods with highest CO2 benefits")
+			st.table(data=table_data)
+		st.write("3 of the top 5 neighborhoods with the highest CO2 benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+
+
+	elif category == "Average Air Quality Benefit":
+		with c4:
+			air_quality_benefit_map = combined_data_n[['neighborhood', 'air_quality_benfits_total_dollar_value']].copy()
+			table_data = air_quality_benefit_map.sort_values(
+				'air_quality_benfits_total_dollar_value', ascending=False).head(5)
+			table_data = table_data.rename(
+				columns={"neighborhood": "Neighborhood",
+				         "air_quality_benfits_total_dollar_value": "Air Quality benefits (USD)"})
+			st.write("Top 5 neighborhoods with highest air quality benefits")
+			st.table(data=table_data)
+
+		st.write(" 3 of the top 5 neighborhoods with the highest air quality benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+
+
 
 	st.write("**Tree Density and Environmental/Climatic Factors**")
+	st.write("Trees can also provide environmental benefits. We also analyzed whether neighborhoods with \
+			higher tree density are less prone to flooding or landslide.")
+
 	env_factor = st.radio("Select a factor", ('Landslide Prone', 'Flooding Prone'))
 	st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 	fig, ax = plt.subplots()
@@ -348,53 +464,59 @@ def write():
 	print(combined_data.head(5))
 
 	c1, c2 = st.columns((1, 1))
-
-	with c1:
-		if env_factor == "Landslide Prone":
+	if env_factor == "Landslide Prone":
+		with c1:
 			#landslide_map = combined_data[['neighborhood', 'SNAP_All_csv_Landslide_Prone___']].copy()
 			plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv_Landslide_Prone___', data = combined_data)
 			plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Landslide susceptibility",
 			title = "Landslide susceptibility vs Number of Trees")
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		with c2:
+			landslide_map = combined_data[
+				['neighborhood', 'SNAP_All_csv_Landslide_Prone___']].copy()
+			fig = px.choropleth(landslide_map,
+			                    geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
+			                    featureidkey='properties.name',
+			                    locations='neighborhood',
+			                    # column in dataframe
+			                    color='SNAP_All_csv_Landslide_Prone___',
+			                    color_continuous_scale='brwnyl',
+			                    title='Landslide susceptibility across Neighborhoods',
+			                    height=500
+			                    )
+			fig.update_geos(fitbounds="locations", visible=False)
+			fig.layout.coloraxis.colorbar.title = "susceptibility"
+			st.plotly_chart(fig, use_container_width=True,
+			                sharing='streamlit')
 
-		elif env_factor == "Flooding Prone":
+		st.write("We see a negative correlation between the Landslide susceptibility and tree density. This should be expected as trees reduce soil erosion and lower soil moisture levels, thereby lowering the risk of landslides.")
+
+	elif env_factor == "Flooding Prone":
+		with c1:
 			#flooding_map = combined_data[['neighborhood', 'SNAP_All_csv_Flood_Plain____lan']].copy()
 			plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv_Flood_Plain____lan', data = combined_data)
 			plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Flooding susceptibility",
 			title = "Flooding susceptibility vs Number of Trees")
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
-	with c2:
-		if env_factor == "Landslide Prone":
-			landslide_map = combined_data[['neighborhood', 'SNAP_All_csv_Landslide_Prone___']].copy()
-			fig=px.choropleth(landslide_map,
-						 geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
-						 featureidkey='properties.name',   
-						 locations='neighborhood',        #column in dataframe
-						 color='SNAP_All_csv_Landslide_Prone___',
-						  color_continuous_scale='brwnyl',
-						   title='Landslide susceptibility across Neighborhoods' ,  
-						   height=500
-						  )
+		with c2:
+			flooding_map = combined_data[
+				['neighborhood', 'SNAP_All_csv_Flood_Plain____lan']].copy()
+			fig = px.choropleth(flooding_map,
+			                    geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
+			                    featureidkey='properties.name',
+			                    locations='neighborhood',
+			                    # column in dataframe
+			                    color='SNAP_All_csv_Flood_Plain____lan',
+			                    color_continuous_scale='blues',
+			                    title='Flooding susceptibility across Neighborhoods',
+			                    height=500
+			                    )
 			fig.update_geos(fitbounds="locations", visible=False)
 			fig.layout.coloraxis.colorbar.title = "susceptibility"
-			st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
+			st.plotly_chart(fig, use_container_width=True,
+			                sharing='streamlit')
 
-		elif env_factor == "Flooding Prone":
-			flooding_map = combined_data[['neighborhood', 'SNAP_All_csv_Flood_Plain____lan']].copy()
-			fig=px.choropleth(flooding_map,
-						 geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
-						 featureidkey='properties.name',   
-						 locations='neighborhood',        #column in dataframe
-						 color='SNAP_All_csv_Flood_Plain____lan',
-						  color_continuous_scale='blues',
-						   title='Flooding susceptibility across Neighborhoods' ,  
-						   height=500
-						  )
-			fig.update_geos(fitbounds="locations", visible=False)
-			fig.layout.coloraxis.colorbar.title = "susceptibility"
-			st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
-
-
+		st.write("We do not see any correlation between the flooding susceptibility of a neighborohood and it's tree density. We believe that this is mainly due to other geographical features such as proximity to the rivers that primarily affect the flooding susceptibility of the neighborhoods.")
 
 	st.write("In the tree dataset, there are data points for tree stumps and vacant sites of various sizes, \
 		where trees could be planted but have not been planted. Naturally, this leads us to wonder whether \

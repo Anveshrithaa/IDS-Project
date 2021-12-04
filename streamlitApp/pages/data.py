@@ -55,10 +55,10 @@ def write():
 	| 15 | stormwater_benefits_dollar_value | float | *trees can control stormwater runoff by acting as mini-reservoirs. This value represents the benefit of stromwater runoff control in dollar te\
 	rms in a year.* |
 	| 16 | stormwater_benefits_runoff_elim | float | *number of gallons of stormwater the tree can intercept annually.* |
-	| 17 | property_value_benefits_dollarvalue | float | |
+	| 17 | property_value_benefits_dollarvalue | float | *due to the aesthetic, cooling and other invaluable benefits the presence of trees drives up the property value in a given neighborhood* |
 	| 18 | property_value_benefits_leaf_surface_area | float | |
-	| 19 | energy_benefits_electricity_dollar_value | float | |
-	| 20 | energy_benefits_gas_dollar_value | float | |
+	| 19 | energy_benefits_electricity_dollar_value | float | *trees lower surface and air temperatures by providing shade and through evapotranspiration. Thus, trees drastically reduce the electricity required for cooling indoor spaces.* |
+	| 20 | energy_benefits_gas_dollar_value | float | *during winter, the trees lose their leaves and allow the sun to heat homes in addition to breaking the cold winds. Hence, in the colder months, tree help keep the indoor spaces warm and reduce the natural gas consumption required for heating purposes.* |
 	| 21 | air_quality_benfits_o3dep_dollar_value | float | *dep means deposition. This is the tree absorbing or intercepting the pollutant . o3 is ozone. * |
 	| 22 | air_quality_benfits_o3dep_lbs | float | |
 	| 23 | air_quality_benfits_vocavd_dollar_value | float | *voc means volatile organic compounds. avd means avoided. This is the tree lessening the need for creation of these pollutants in the f\
@@ -78,7 +78,7 @@ def write():
 	| 36 | air_quality_benfits_pm10avd_lbs | float | |
 	| 37 | air_quality_benfits_total_dollar_value | float | |
 	| 38 | air_quality_benfits_total_lbs | float | |
-	| 39 | co2_benefits_dollar_value | float | |
+	| 39 | co2_benefits_dollar_value | float | *trees absorb CO2, removing and storing the carbon while releasing oxygen back into the air. This benefit is quantified by estimating the financial cost of industrially removing from atmosphere, the additional CO2 that would have been present had that tree not been present.* |
 	| 40 | co2_benefits_sequestered_lbs | float | |
 	| 41 | co2_benefits_sequestered_value | float | |
 	| 42 | co2_benefits_avoided_lbs | float | |
@@ -127,7 +127,7 @@ def write():
 	st.write("5. Assume vacant sites has no benefit values so replace NaN with 0.0")
 	st.write("6. Some trees are missing some of the height, width, or benefit values. \
 	    By missing, we mean that these values are either 0.0 or NaN.\
-	    We replaced them with the average for that tree type so we do not have to drop that tree datapoint.\
+	    We replaced them with the average for that tree type (i.e species) so we do not have to drop that tree datapoint.\
 	    These values should be relatively independent of which neighborhood that tree is located in.\
 	    For example, it is unlikely that there will be a statistically significant difference in height\
 	    for the same type of tree across the neighborhoods. Similarly, the air quality value a type of tree provides\

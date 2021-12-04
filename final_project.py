@@ -40,7 +40,7 @@ st.markdown(
 st.header("Tree Characteristics")
 
 
-df_trees = pd.read_csv("cleaned_data/cleaned_tree_data_5.csv", encoding="ISO-8859-1", low_memory=False)
+df_trees = pd.read_csv("streamlitApp/cleaned_data/cleaned_tree_data_5.csv", encoding="ISO-8859-1", low_memory=False)
 
 option = st.selectbox(
 'Choose a Tree Characteristics',
@@ -147,7 +147,7 @@ st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
 
 st.header("Tree Species Specific Benefits")
-df_trees = pd.read_csv("cleaned_data/cleaned_tree_data_5.csv", encoding="ISO-8859-1", low_memory=False)
+df_trees = pd.read_csv("streamlitApp/cleaned_data/cleaned_tree_data_5.csv", encoding="ISO-8859-1", low_memory=False)
 tree_stat = df_trees.groupby(["common_name"]).agg(["count", "mean"]).reset_index()
 tree_stat = tree_stat[tree_stat["id"]["count"] >= 10]
 
@@ -360,7 +360,7 @@ st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', uns
 
 complete_data = pd.read_csv("cleaned_data/neighborhood_features_data.csv")
 
-raw_df_trees = pd.read_csv("cleaned_data/cleaned_tree_data_5.csv", encoding="ISO-8859-1", low_memory=False)
+raw_df_trees = pd.read_csv("streamlitApp/cleaned_data/cleaned_tree_data_5.csv", encoding="ISO-8859-1", low_memory=False)
 df_trees = raw_df_trees[(raw_df_trees['common_name'] != 'Stump') & 
 					   (raw_df_trees['scientific_name'] != 'Stump') &
 					   (raw_df_trees['common_name'] != 'Vacant Site Small') & 
