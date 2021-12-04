@@ -161,7 +161,8 @@ def write():
 		fig.update_geos(fitbounds="locations", visible=False)
 		st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 	st.write(
-		"While there seems to be a weak positive correlation between the average height and average width (neighborhoods with tall trees tend to have higher average tree width), this can't be considered as a strong correlation. A strange observation is that the neighborhood 'Hays' has the highest average tree height in pittsburgh. However, it has one of the lowest average tree width in Pittsburgh!")
+		"While there seems to be a weak positive correlation between the average height and average width (neighborhoods with tall trees tend to have higher average tree width), this can't be considered as a strong correlation. A strange observation is that the neighborhood 'Hays' has the highest average tree height in Pittsburgh. However, it has one of the lowest average tree width in Pittsburgh. Intrigued, we \
+		looked into this strange observation more deeply and found out that there is actually only one tree datapoint for Hays neighborhood. This observation therefore may not be representative. ")
 
 	# ----------- END:  Tree Characteristics -------------
 
@@ -204,15 +205,16 @@ def write():
 	fig, ax = plt.subplots(figsize=(4, 2))
 	graph_data = tree_stat.sort_values([(corresponding_cols[option],"mean")])
 	graph_data = graph_data.tail(top_k)
-	plot = sns.barplot(x=graph_data["common_name"], y=graph_data[corresponding_cols[option]]["mean"],color="limegreen")
-	plot.set_xticklabels(plot.get_xticklabels(),
-						  rotation=90,
-						  horizontalalignment='right')
+
 	ax.tick_params(axis='both', which='major', labelsize=4)
 	ax.tick_params(axis='both', which='minor', labelsize=4)
 	label_font_size = 6
 
 	if option == "Storm Water Benefit":
+		plot = sns.barplot(x=graph_data["common_name"], y=graph_data[corresponding_cols[option]]["mean"],color="limegreen")
+		plot.set_xticklabels(plot.get_xticklabels(),
+						  rotation=90,
+						  horizontalalignment='right')
 		plot.set_xlabel("Tree Species", fontsize = label_font_size)
 		plot.set_ylabel("Average Stormwater Benefit in Dollar Value", fontsize = label_font_size)
 		st.write(
@@ -221,6 +223,10 @@ def write():
 		st.write("Here we see that the Oak family of tree provide the most storm water benefit. This is because each of the large canopy trees such as Oak and London plane intercepts almost 3,000 gallons of rainfall annually. These trees together save millions of dollars annually in stormwater management costs.")
 
 	elif option == 'Property Value Benefit':
+		plot = sns.barplot(x=graph_data["common_name"], y=graph_data[corresponding_cols[option]]["mean"],color="limegreen")
+		plot.set_xticklabels(plot.get_xticklabels(),
+						  rotation=90,
+						  horizontalalignment='right')
 		plot.set_xlabel("Tree Species", fontsize = label_font_size)
 		plot.set_ylabel("Average Property Benefit in Dollar Value", fontsize = label_font_size)
 		st.write(
@@ -232,6 +238,10 @@ def write():
 			width=400, caption="An image of the Japanese Pagoda tree in full bloom.")
 
 	elif option == 'Electricity Saving Benefit':
+		plot = sns.barplot(x=graph_data["common_name"], y=graph_data[corresponding_cols[option]]["mean"],color="limegreen")
+		plot.set_xticklabels(plot.get_xticklabels(),
+						  rotation=90,
+						  horizontalalignment='right')
 		plot.set_xlabel("Tree Species", fontsize = label_font_size)
 		plot.set_ylabel("Average Energy (Electricity) Benefit in Dollar Value", fontsize = label_font_size)
 		st.write(
@@ -241,6 +251,10 @@ def write():
 
 
 	elif option == 'Gas Saving Benefit':
+		plot = sns.barplot(x=graph_data["common_name"], y=graph_data[corresponding_cols[option]]["mean"],color="limegreen")
+		plot.set_xticklabels(plot.get_xticklabels(),
+						  rotation=90,
+						  horizontalalignment='right')
 		plot.set_xlabel("Tree Species", fontsize = label_font_size)
 		plot.set_ylabel("Average Energy (Gas) Benefit in Dollar Value", fontsize = label_font_size)
 		st.write(
@@ -300,6 +314,10 @@ def write():
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 		elif pollutant == "Overall":
+			plot = sns.barplot(x=graph_data["common_name"], y=graph_data[corresponding_cols[option]]["mean"],color="limegreen")
+			plot.set_xticklabels(plot.get_xticklabels(),
+						  rotation=90,
+						  horizontalalignment='right')
 			plot.set_xlabel("Tree Species", fontsize = label_font_size)
 			plot.set_ylabel("Average Overall Air Quality Benefit in Dollar Value", fontsize = label_font_size)
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
@@ -308,6 +326,10 @@ def write():
 
 
 	elif option == "CO2 Benefit":
+		plot = sns.barplot(x=graph_data["common_name"], y=graph_data[corresponding_cols[option]]["mean"],color="limegreen")
+		plot.set_xticklabels(plot.get_xticklabels(),
+						  rotation=90,
+						  horizontalalignment='right')
 		plot.set_xlabel("Tree Species", fontsize = label_font_size)
 		plot.set_ylabel("Average CO2 Benefit in Dollar Value", fontsize = label_font_size)
 		st.write(
@@ -316,7 +338,10 @@ def write():
 		st.write("We see that the Oak family of trees provide the most CO2 benefit. This is due to the fact that Oak is the genus with the most carbon-absorbing species. Approximately 30,000 pounds of CO2 is sequestered per acre in a mature (i.e atleast 50 years old) oak forest. It has also been discovered that oak trees have increased their rate of photosynthesis by up to a third in response to the raising CO2 levels.")
 
 	elif option == "Overall Benefit":
-
+		plot = sns.barplot(x=graph_data["common_name"], y=graph_data[corresponding_cols[option]]["mean"],color="limegreen")
+		plot.set_xticklabels(plot.get_xticklabels(),
+						  rotation=90,
+						  horizontalalignment='right')
 		plot.set_xlabel("Tree Species", fontsize = label_font_size)
 		plot.set_ylabel("Average Overall Benefit in Dollar Value", fontsize = label_font_size)
 
