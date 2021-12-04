@@ -44,7 +44,7 @@ def write():
 	st.write("According to the non-profit American Forests, trees are more than scenery; instead, they are \
 		 critical infrastructure that every person in every neighborhood deserves. In fact, tree-equality is \
 		 a topic included in President Biden and the Democrat’s 3.5-trillion dollar spending bill proposal. \
-		 Within the bill, approximately 3.5 billion dollars will be spent to improve tree equality \
+		 Within the bill, approximately 3 billion dollars will be spent to improve tree equality \
 		 (source: https://nypost.com/2021/09/27/biden-dems-3-5t-bill-includes-money-for-tree-equity-bias-training/). \
 		 The money will be used for “tree planting and related activities to increase community tree canopy and \
 		 associated societal and climate co-benefits, with a priority for projects that increase tree equity.” \
@@ -225,17 +225,18 @@ def write():
 	st.write("Next, we wanted to investigate whether the tree benefits are correlated \
 		with tree density. Are neighborhoods with higher tree density getting on average \
 		more benefits from trees?")
+	st.write("Here, we compare the chloropleth maps of the tree density and the tree benefits. By selecting the tree benefit category, we can compared the tree density and that specific tree benefit. A short analysis is provided below.")
 
 	combined_data_n = pd.read_csv("cleaned_data/tree_density_data.csv")
 
 	info = combined_data_n.drop(labels = ['Unnamed: 0', 'Neighborhood_2010_AREA', 'Neighborhood_2010_ACRES'], axis = 1)
 
-	category = st.radio("Select a category to display", ('Overall Tree Benefit', 'Average Stromwater Benefit', \
+	category = st.selectbox("Select a category to display", ('Overall Tree Benefit', 'Average Stromwater Benefit', \
 		'Average Property Value Benefit', 'Average Energy (Electricity) Benefit','Average Energy (Gas) Benefit',\
 		'Average CO2 Benefit','Average Air Quality Benefit'))
 	st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 
-	c1, c2 = st.columns((1, 1))
+	c1, c2 = st.columns((2, 1))
 	with c1:
 		tree_density_map = combined_data_n[['neighborhood', 'tree_count']].copy()
 		fig=px.choropleth(tree_density_map,
@@ -249,9 +250,22 @@ def write():
 					   width=1250
 					  )
 		fig.update_geos(fitbounds="locations", visible=False)
+		fig.update_layout(margin={"r":0,"l":0})
 		st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
 	with c2:
+		tree_density_map = combined_data_n[
+			['neighborhood', 'tree_count']].copy()
+		table_data = tree_density_map.sort_values('tree_count',
+		                                          ascending=False).head(5)
+		table_data = table_data.rename(columns={"neighborhood": "Neighborhood",
+		                                        "tree_count": "Tree Density"})
+		st.write("Top 5 neighborhoods with Highest Tree Density")
+		st.table(data=table_data)
+
+	c3, c4 = st.columns((2, 1))
+
+	with c3:
 		if category == "Overall Tree Benefit":
 			overall_benefit_map = combined_data_n[['neighborhood', 'overall_benefits_dollar_value']].copy()
 			fig=px.choropleth(overall_benefit_map,
@@ -266,6 +280,7 @@ def write():
 					  )
 			fig.layout.coloraxis.colorbar.title = "overall benefit"
 			fig.update_geos(fitbounds="locations", visible=False)
+			fig.update_layout(margin={"r":0,"l":0})
 			st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
 		elif category == "Average Stromwater Benefit":
@@ -282,6 +297,7 @@ def write():
 					  )
 			fig.layout.coloraxis.colorbar.title = "stormwater benefit"
 			fig.update_geos(fitbounds="locations", visible=False)
+			fig.update_layout(margin={"r":0,"l":0})
 			st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
 		elif category == "Average Property Value Benefit":
@@ -298,6 +314,7 @@ def write():
 					  )
 			fig.layout.coloraxis.colorbar.title = "property value benefit"
 			fig.update_geos(fitbounds="locations", visible=False)
+			fig.update_layout(margin={"r":0,"l":0})
 			st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
 		elif category == "Average Energy (Electricity) Benefit":
@@ -314,6 +331,7 @@ def write():
 					  )
 			fig.layout.coloraxis.colorbar.title = "electricity benefit"
 			fig.update_geos(fitbounds="locations", visible=False)
+			fig.update_layout(margin={"r":0,"l":0})
 			st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
 		elif category == "Average Energy (Gas) Benefit":
@@ -330,6 +348,7 @@ def write():
 						  )
 			fig.layout.coloraxis.colorbar.title = "gas benefit"
 			fig.update_geos(fitbounds="locations", visible=False)
+			fig.update_layout(margin={"r":0,"l":0})
 			st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
 		elif category == "Average CO2 Benefit":
@@ -346,6 +365,7 @@ def write():
 						  )
 			fig.layout.coloraxis.colorbar.title = "co2 benefit"
 			fig.update_geos(fitbounds="locations", visible=False)
+			fig.update_layout(margin={"r":0,"l":0})
 			st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
 
@@ -363,19 +383,8 @@ def write():
 						  )
 			fig.layout.coloraxis.colorbar.title = "air quality benefit"
 			fig.update_geos(fitbounds="locations", visible=False)
+			fig.update_layout(margin={"r":0,"l":0})
 			st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
-
-	c3, c4 = st.columns((1, 1))
-
-	with c3:
-		tree_density_map = combined_data_n[
-			['neighborhood', 'tree_count']].copy()
-		table_data = tree_density_map.sort_values('tree_count',
-		                                          ascending=False).head(5)
-		table_data = table_data.rename(columns={"neighborhood": "Neighborhood",
-		                                        "tree_count": "Tree Density"})
-		st.write("Top 5 neighborhoods with Highest Tree Density")
-		st.table(data=table_data)
 
 
 	if category == "Overall Tree Benefit":
@@ -387,7 +396,7 @@ def write():
 				         "overall_benefits_dollar_value": "Overall benefits (USD)"})
 			st.write("Top 5 neighborhoods with highest overall benefits")
 			st.table(data=table_data)
-		st.write("3 of the top 5 neighborhoods with the highest overall benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+		st.write("3 of the top 5 neighborhoods with the highest overall benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two.")
 
 	elif category == "Average Stromwater Benefit":
 		with c4:
@@ -479,61 +488,61 @@ def write():
 
 	print(combined_data.head(5))
 
-	c1, c2 = st.columns((1, 1))
 	if env_factor == "Landslide Prone":
+		_,c1,_ = st.columns((2, 10, 2))
 		with c1:
 			#landslide_map = combined_data[['neighborhood', 'SNAP_All_csv_Landslide_Prone___']].copy()
 			plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv_Landslide_Prone___', data = combined_data)
 			plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Landslide susceptibility",
 			title = "Landslide susceptibility vs Number of Trees")
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
-		with c2:
-			landslide_map = combined_data[
-				['neighborhood', 'SNAP_All_csv_Landslide_Prone___']].copy()
-			fig = px.choropleth(landslide_map,
-			                    geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
-			                    featureidkey='properties.name',
-			                    locations='neighborhood',
-			                    # column in dataframe
-			                    color='SNAP_All_csv_Landslide_Prone___',
-			                    color_continuous_scale='brwnyl',
-			                    title='Landslide susceptibility across Neighborhoods',
-			                    height=500
-			                    )
-			fig.update_geos(fitbounds="locations", visible=False)
-			fig.layout.coloraxis.colorbar.title = "susceptibility"
-			st.plotly_chart(fig, use_container_width=True,
-			                sharing='streamlit')
+
+		landslide_map = combined_data[
+	       		['neighborhood', 'SNAP_All_csv_Landslide_Prone___']].copy()
+		fig = px.choropleth(landslide_map,
+			            geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
+			            featureidkey='properties.name',
+			            locations='neighborhood',
+			            # column in dataframe
+			            color='SNAP_All_csv_Landslide_Prone___',
+			            color_continuous_scale='brwnyl',
+			            title='Landslide susceptibility across Neighborhoods',
+			            height=500
+			            )
+		fig.update_geos(fitbounds="locations", visible=False)
+		fig.layout.coloraxis.colorbar.title = "susceptibility"
+		st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
 		st.write("We see a negative correlation between the Landslide susceptibility and tree density. This should be expected as trees reduce soil erosion and lower soil moisture levels, thereby lowering the risk of landslides.")
 
 	elif env_factor == "Flooding Prone":
+		_,c1,_ = st.columns((2, 10, 2))
 		with c1:
 			#flooding_map = combined_data[['neighborhood', 'SNAP_All_csv_Flood_Plain____lan']].copy()
 			plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv_Flood_Plain____lan', data = combined_data)
 			plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Flooding susceptibility",
 			title = "Flooding susceptibility vs Number of Trees")
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
-		with c2:
-			flooding_map = combined_data[
-				['neighborhood', 'SNAP_All_csv_Flood_Plain____lan']].copy()
-			fig = px.choropleth(flooding_map,
-			                    geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
-			                    featureidkey='properties.name',
-			                    locations='neighborhood',
-			                    # column in dataframe
-			                    color='SNAP_All_csv_Flood_Plain____lan',
-			                    color_continuous_scale='blues',
-			                    title='Flooding susceptibility across Neighborhoods',
-			                    height=500
-			                    )
-			fig.update_geos(fitbounds="locations", visible=False)
-			fig.layout.coloraxis.colorbar.title = "susceptibility"
-			st.plotly_chart(fig, use_container_width=True,
-			                sharing='streamlit')
+                        
+		flooding_map = combined_data[
+	       		['neighborhood', 'SNAP_All_csv_Flood_Plain____lan']].copy()
+		fig = px.choropleth(flooding_map,
+			            geojson="https://raw.githubusercontent.com/blackmad/neighborhoods/master/gn-pittsburgh.geojson",
+			            featureidkey='properties.name',
+			            locations='neighborhood',
+			            # column in dataframe
+			            color='SNAP_All_csv_Flood_Plain____lan',
+			            color_continuous_scale='blues',
+			            title='Flooding susceptibility across Neighborhoods',
+			            height=500
+			            )
+		fig.update_geos(fitbounds="locations", visible=False)
+		fig.layout.coloraxis.colorbar.title = "susceptibility"
+		st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
 		st.write("We do not see any correlation between the flooding susceptibility of a neighborohood and it's tree density. We believe that this is mainly due to other geographical features such as proximity to the rivers that primarily affect the flooding susceptibility of the neighborhoods.")
 
+	st.write("**Tree Stumps and Vacant Sites**")
 	st.write("In the tree dataset, there are data points for tree stumps and vacant sites of various sizes, \
 		where trees could be planted but have not been planted. Naturally, this leads us to wonder whether \
 		there is any correlation between socioeconomic factors and tree stumps and vacant planting spots? \
@@ -591,37 +600,38 @@ def write():
 
 
 	st.write("**Correlating tree stumps and vacant sites with different socio-economic factors**")
-	stump_factor = st.radio("Select a factor", ('Population Density', 'Crime Rate', 'Median Income','Percentage of the Population Under Poverty'))
+	stump_factor = st.selectbox("Select a factor", ('Population Density', 'Crime Rate', 'Median Income','Percentage of the Population Under Poverty'))
 	st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 	fig, ax = plt.subplots()
 
-
-	if stump_factor == "Population Density":
-		plot = sns.regplot(x = 'tree_count', y = 'Pop__2010', data = combined_stump)
-		plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Population Density",
-		title = "Population Density vs Number of Stumps/Vacant sites")
-		st.pyplot(fig, use_container_width=True, sharing='streamlit')
-
-
-	elif stump_factor == "Crime Rate":
-		plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv__Part_1__Major_Cri', data = combined_stump)
-		plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Crime Rate(Normalized by Area)",
-		title = "Crime Rate vs Number of Stumps/Vacant sites")	
-		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+	_, c1, _ = st.columns((1, 8, 1))
+	with c1:
+		if stump_factor == "Population Density":
+			plot = sns.regplot(x = 'tree_count', y = 'Pop__2010', data = combined_stump)
+			plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Population Density",
+			title = "Population Density vs Number of Stumps/Vacant sites")
+			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
-	elif stump_factor == "Median Income":
-		plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv_2009_Median_Income', data = combined_stump)
-		plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Median income",
-		title = "Median income vs Number of Stumps/Vacant sites")	
-		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		elif stump_factor == "Crime Rate":
+			plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv__Part_1__Major_Cri', data = combined_stump)
+			plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Crime Rate(Normalized by Area)",
+			title = "Crime Rate vs Number of Stumps/Vacant sites")	
+			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
-	elif stump_factor == "Percentage of the Population Under Poverty":
-		plot = sns.regplot(x = 'tree_count', y = 'Est__Percent_Under_Poverty__201', data = combined_stump)
-		plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Percentage population under poverty",
-		title = "Crime Rate vs Number of Stumps/Vacant sites")	
-		st.pyplot(fig, use_container_width=True, sharing='streamlit')
+		elif stump_factor == "Median Income":
+			plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv_2009_Median_Income', data = combined_stump)
+			plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Median income",
+			title = "Median income vs Number of Stumps/Vacant sites")	
+			st.pyplot(fig, use_container_width=True, sharing='streamlit')
+
+
+		elif stump_factor == "Percentage of the Population Under Poverty":
+			plot = sns.regplot(x = 'tree_count', y = 'Est__Percent_Under_Poverty__201', data = combined_stump)
+			plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Percentage population under poverty",
+			title = "Crime Rate vs Number of Stumps/Vacant sites")	
+			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
 	st.write("Based on our investigation, we found that there may be some correlations between socioeconomic \
