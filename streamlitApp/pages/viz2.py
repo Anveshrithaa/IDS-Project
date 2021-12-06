@@ -649,10 +649,10 @@ def write():
 	st.write("Though we are now aware that the Oak family of trees have very high overall benefits to mankind, "
 	         "it is not possible to plant Oak trees in all of these spots as some vacant sites are not big"
 	         " enough. Additionally, there are also a few vacant sites that aren't suitable for growing any "
-	         "trees as they are on in pits, wells, lack of sunlight, etc. "
+	         "trees as they are in pits, wells, lack of sunlight, etc. "
 	         "Hence, amongst the vacant sites that could suuport the growth of tree, we first categorized them "
-	         "based on the height and width they could offer and then picked the best tree to be planted on that site."
-	         "While this was the case with vacant sites, fortuntely most stumps were in spots that supported the "
+	         "based on the height and width they could offer and then picked the best tree to be planted on that site. "
+	         "While this was the case with vacant sites, fortunately most stumps were in spots that supported the "
 	         "growth of large tress such Oak." )
 	st.write("Based on this analysis, we have calculated the benefits as shown below")
 	st.markdown(
@@ -666,5 +666,6 @@ def write():
 		| Vacant Site Not Suitable | 846 | NA | 0.0 |
 		""")
 
+	st.write("")
 	st.write("Hence, by undertaking this mission of replacing the stumps and vacant sites which offer"
-	         "no benefits to the residents, with trees the overall annual benefits would estimate to 0.66 million USD!")
+	         "no benefits to the residents, with trees the overall annual benefits would estimate to USD 666312!")
