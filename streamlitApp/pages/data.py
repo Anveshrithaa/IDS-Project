@@ -25,11 +25,11 @@ def write():
 	st.header("About the Datasets")
 
 	st.write("The main dataset that we explored is the **\"City of Pittsburgh Trees\" dataset** found from Western \
-	        Pennsylvania Regional Data Center: https://data.wprdc.org/dataset/city-trees. It contains \
+	        Pennsylvania Regional Data Center [2]. It contains \
 	        45,709 entries and 58 features. The data include trees cared for and managed by the City of\
 	        Pittsburgh Department of Public Works Forestry Division. In this data, the benefits of the trees \
 	        are quantified to numerical values and are calculated using the National Tree Benefit Calculator \
-	        Web Service. Besides trees, the dataset also includes tree stumps that are yet to be removed and\
+	        Web Service [3]. Besides trees, the dataset also includes tree stumps that are yet to be removed and\
 	        vacant spots of various sizes where trees could be planted. These data points offer more dimensions\
 	        for analysis. Here are all of the features for each tree datapoint. Some interesting ones will be \
 	        commented.")
@@ -102,14 +102,14 @@ def write():
 	)
 	st.write("\n")
 
-	st.write("For more detailed explanations for each benefit category, please check out the National Tree Benefit Calculator website (http://www.treebenefits.com/calculator/)")
+	st.write("For more detailed explanations for each benefit category, please check out the National Tree Benefit Calculator website [3]")
 	st.write("The following links also provide useful background information for some of the benefit categories:")
 	st.write("- https://planting.itreetools.org/help")
 	st.write("- https://planting.itreetools.org/references/")
 	st.write("- https://www.itreetools.org/documents/248/Streets_Manual_v5.pdf ")
 
-	st.write("The other two datasets that we worked with are **Pittsburgh American Community Survey 2015 - Miscellaneous Data** (https://data.wprdc.org/dataset/pittsburgh-american-community-survey-2015-miscellaneous-data) \
-	    and **Neighborhoods with SNAP Data** (https://data.wprdc.org/dataset/neighborhoods-with-snap-data), both of which are also found\
+	st.write("The other two datasets that we worked with are **Pittsburgh American Community Survey 2015 - Miscellaneous Data** [4] \
+	    and **Neighborhoods with SNAP Data** [5], both of which are also found\
 	    from Western Pennsylvania Regional Data Center. The 2010 census result and the 2015 American Community Survey results datasets provide neighborhood-level statistics across\
 	    Pittsburgh, and include information such as population, median home incomes, education attainment, crime rate etc.\
 	    across the neighborhood. The 2020 census result was still unavailable at the time of this analysis and will only be released in mid-2022. Both datasets contain 90 entries that cover the 90 neighborhoods around Pittsburgh.")
