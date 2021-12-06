@@ -395,7 +395,7 @@ def write():
 				         "overall_benefits_dollar_value": "Overall benefits (USD)"})
 			st.write("Top 5 neighborhoods with highest overall benefits")
 			st.table(data=table_data)
-		st.write("3 of the top 5 neighborhoods with the highest overall benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two.")
+		st.write("3 of the top 5 neighborhoods with the highest overall benefits are also in the top 5 neighborhoods with highest tree density. This exhibits a clear positive correlation between the two.")
 
 	elif category == "Average Stromwater Benefit":
 		with c4:
@@ -407,7 +407,7 @@ def write():
 				         "stormwater_benefits_dollar_value": "Stormwater benefits (USD)"})
 			st.write("Top 5 neighborhoods with highest stormwater benefits")
 			st.table(data=table_data)
-		st.write("3 of the top 5 neighborhoods with the highest stormwater benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+		st.write("3 of the top 5 neighborhoods with the highest stormwater benefits are also in the top 5 neighborhoods with highest tree density. This exhibits a clear positive correlation between the two.")
 
 	elif category == "Average Property Value Benefit":
 		with c4:
@@ -419,7 +419,7 @@ def write():
 				         "property_value_benefits_dollarvalue": "Property value benefits (USD)"})
 			st.write("Top 5 neighborhoods with highest property value benefits")
 			st.table(data=table_data)
-		st.write("4 of the top 5 neighborhoods with the highest property value benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+		st.write("4 of the top 5 neighborhoods with the highest property value benefits are also in the top 5 neighborhoods with highest tree density. This exhibits a clear positive correlation between the two.")
 
 
 	elif category == "Average Energy (Electricity) Benefit":
@@ -433,7 +433,7 @@ def write():
 			st.write("Top 5 neighborhoods with highest energy (electricity) benefits")
 			st.table(data=table_data)
 
-		st.write("3 of the top 5 neighborhoods with the highest energy (electricity) benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+		st.write("3 of the top 5 neighborhoods with the highest energy (electricity) benefits are also in the top 5 neighborhoods with highest tree density. This exhibits a clear positive correlation between the two.")
 
 	elif category == "Average Energy (Gas) Benefit":
 		with c4:
@@ -446,7 +446,7 @@ def write():
 			st.write("Top 5 neighborhoods with highest energy (gas) benefits")
 			st.table(data=table_data)
 
-		st.write("3 of the top 5 neighborhoods with the highest energy (gas) benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+		st.write("3 of the top 5 neighborhoods with the highest energy (gas) benefits are also in the top 5 neighborhoods with highest tree density. This exhibits a clear positive correlation between the two.")
 
 
 	elif category == "Average CO2 Benefit":
@@ -459,7 +459,7 @@ def write():
 				         "co2_benefits_dollar_value": "CO2 benefits (USD)"})
 			st.write("Top 5 neighborhoods with highest CO2 benefits")
 			st.table(data=table_data)
-		st.write("3 of the top 5 neighborhoods with the highest CO2 benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+		st.write("3 of the top 5 neighborhoods with the highest CO2 benefits are also in the top 5 neighborhoods with highest tree density. This exhibits a clear positive correlation between the two.")
 
 
 	elif category == "Average Air Quality Benefit":
@@ -473,7 +473,7 @@ def write():
 			st.write("Top 5 neighborhoods with highest air quality benefits")
 			st.table(data=table_data)
 
-		st.write(" 3 of the top 5 neighborhoods with the highest air quality benefits are also in the top 5 neighborhoods with highest tree density. This exhibhits a clear positive correlation between the two")
+		st.write(" 3 of the top 5 neighborhoods with the highest air quality benefits are also in the top 5 neighborhoods with highest tree density. This exhibits a clear positive correlation between the two.")
 
 
 
