@@ -54,6 +54,8 @@ def write():
 			 featureidkey='properties.name',   
 			 locations='neighborhood',        #column in dataframe
 			 color='common_name',
+	          labels={'neighborhood': 'Neighborhood',
+	                  'common_name': 'Tree species common name'},
 			  color_continuous_scale='Inferno',
 			   title='Most prevalent species in each Neighborhood' ,  
 			   height=700
@@ -114,6 +116,8 @@ def write():
 				 featureidkey='properties.name',
 				 locations='neighborhood',        #column in dataframe
 				 color='count',
+			      labels={'neighborhood': 'Neighborhood',
+			              'count': 'Tree count'},
 				  color_continuous_scale= 'blues',
 				   title= str2 ,
 				   height=700,
@@ -139,6 +143,8 @@ def write():
 		                    featureidkey='properties.name',
 		                    locations='neighborhood',  # column in dataframe
 		                    color='average_height',
+		                    labels={'neighborhood': 'Neighborhood',
+		                            'average_height': 'Average height(m)'},
 		                    color_continuous_scale='blues',
 		                    title='Average Tree Height across Neighborhood',
 		                    height=700
@@ -154,6 +160,8 @@ def write():
 		                    featureidkey='properties.name',
 		                    locations='neighborhood',  # column in dataframe
 		                    color='average_width',
+		                    labels={'neighborhood': 'Neighborhood',
+		                            'average_width': 'Average width(m)'},
 		                    color_continuous_scale='blues',
 		                    title='Average Tree Width across Neighborhood',
 		                    height=700

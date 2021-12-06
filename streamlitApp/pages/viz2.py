@@ -153,7 +153,7 @@ def write():
 		home_value_data = home_value_data[home_value_data['median_home_value'] != 0]
 		fig, ax = plt.subplots()
 		plot = sns.regplot(x = 'area_norm_tree_count', y = 'median_home_value', data = home_value_data)
-		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Median Home Value ($)", 
+		plot.set(xlabel = "Number of Trees (per Acre of land area)", ylabel = "Median Home Value ($)", 
 				 title = "Relationship between Median Home Value and Number of Trees \nin Neighborhoods across Pittsburgh")
 		_, c, _ = st.columns((1, 8, 1))
 		with c:
@@ -165,7 +165,7 @@ def write():
 	with st.expander("Population Density"):
 		fig, ax = plt.subplots()
 		plot = sns.regplot(x = 'area_norm_tree_count', y = 'population_density', data = complete_data)
-		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Population Density",
+		plot.set(xlabel = "Number of Trees (per Acre of land area)", ylabel = "Population Density (population per Acre of land area)",
 				 title = "Population Density vs Number of Trees")
 		_, c, _ = st.columns((1, 8, 1))
 		with c:
@@ -178,7 +178,7 @@ def write():
 	with st.expander("Industrial Area"):
 		fig, ax = plt.subplots()
 		plot = sns.regplot(x = 'area_norm_tree_count', y = 'per_industrial_area', data = complete_data)
-		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Percentage Industrial Area",
+		plot.set(xlabel = "Number of Trees (per Acre of land area)", ylabel = "Percentage Industrial Area",
 				 title = "Percentage Industrial Area vs Number of Trees")
 		_, c, _ = st.columns((1, 8, 1))
 		with c:
@@ -189,7 +189,7 @@ def write():
 	with st.expander("Commercial Area"):
 		fig, ax = plt.subplots()
 		plot = sns.regplot(x = 'area_norm_tree_count', y = 'per_commercial_area', data = complete_data)
-		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Percentage Commercial Area",
+		plot.set(xlabel = "Number of Trees (per Acre of land area)", ylabel = "Percentage Commercial Area",
 				 title = "Percentage Commercial Area vs Number of Trees")
 		_, c, _ = st.columns((1, 8, 1))
 		with c:
@@ -200,7 +200,7 @@ def write():
 	with st.expander("Education"):
 		fig, ax = plt.subplots()
 		plot = sns.regplot(x = 'area_norm_tree_count', y = 'per_diploma', data = complete_data)
-		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Percentage High School Diplomas",
+		plot.set(xlabel = "Number of Trees (per Acre of land area)", ylabel = "Percentage High School Diplomas",
 				 title = "Percentage High School Diplomas vs Number of Trees")
 		_, c, _ = st.columns((1, 8, 1))
 		with c:
@@ -211,7 +211,7 @@ def write():
 		fig, ax = plt.subplots()
 		#crime_rate_density_map = combined_data[['neighborhood', 'SNAP_All_csv__Part_1__Major_Cri']].copy()
 		plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv__Part_1__Major_Cri', data = combined_data)
-		plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Crime Rate(Normalized by Area)",
+		plot.set(xlabel = "Number of Trees (per Acre of land area)", ylabel = "Crime Rate(crimes per Acre of land area)",
 		title = "Crime Rate vs Number of Trees")
 		_, c, _ = st.columns((1, 8, 1))
 		with c:
@@ -274,7 +274,7 @@ def write():
 					 locations='neighborhood',        #column in dataframe
 					 color='overall_benefits_dollar_value',
 					  color_continuous_scale='greens',
-					   title='Average Overall benefit in Dollar Value across Neighborhoods' ,
+					   title='Average Overall benefit in USD across Neighborhoods' ,
 					   height=500,
 					   width=1250
 					  )
@@ -291,7 +291,7 @@ def write():
 					 locations='neighborhood',        #column in dataframe
 					 color='stormwater_benefits_dollar_value',
 					  color_continuous_scale='greens',
-					   title='Average Stormwater benefit in Dollar Value across Neighborhoods' ,  
+					   title='Average Stormwater benefit in USD across Neighborhoods' ,
 					   height=500,
 					   width=1250
 					  )
@@ -308,7 +308,7 @@ def write():
 					 locations='neighborhood',        #column in dataframe
 					 color='property_value_benefits_dollarvalue',
 					  color_continuous_scale='greens',
-					   title='Average Property Value benefit in Dollar Value across Neighborhoods' ,  
+					   title='Average Property Value benefit in USD across Neighborhoods' ,
 					   height=500,
 					   width=1250
 					  )
@@ -325,7 +325,7 @@ def write():
 					 locations='neighborhood',        #column in dataframe
 					 color='energy_benefits_electricity_dollar_value',
 					  color_continuous_scale='greens',
-					   title='Average Energy Electricity benefit in Dollar Value across Neighborhoods' ,  
+					   title='Average Energy Electricity benefit in USD across Neighborhoods' ,
 					   height=500,
 					   width=1250
 					  )
@@ -342,7 +342,7 @@ def write():
 						 locations='neighborhood',        #column in dataframe
 						 color='energy_benefits_gas_dollar_value',
 						  color_continuous_scale='greens',
-						   title='Average Energy Gas benefit in Dollar Value across Neighborhoods' ,  
+						   title='Average Energy Gas benefit in USD across Neighborhoods' ,
 						   height=500,
 						   width=1250
 						  )
@@ -359,7 +359,7 @@ def write():
 						 locations='neighborhood',        #column in dataframe
 						 color='co2_benefits_dollar_value',
 						  color_continuous_scale='greens',
-						   title='Average CO2 benefit in Dollar Value across Neighborhoods' ,  
+						   title='Average CO2 benefit in USD across Neighborhoods' ,
 						   height=500,
 						   width=1250
 						  )
@@ -377,7 +377,7 @@ def write():
 						 locations='neighborhood',        #column in dataframe
 						 color='air_quality_benfits_total_dollar_value',
 						  color_continuous_scale='greens',
-						   title='Average Air Quality benefit in Dollar Value across Neighborhoods' ,  
+						   title='Average Air Quality benefit in USD across Neighborhoods' ,
 						   height=500,
 						   width=1250
 						  )
@@ -493,7 +493,7 @@ def write():
 		with c1:
 			#landslide_map = combined_data[['neighborhood', 'SNAP_All_csv_Landslide_Prone___']].copy()
 			plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv_Landslide_Prone___', data = combined_data)
-			plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Landslide susceptibility",
+			plot.set(xlabel = "Number of Trees (per Acre of land area)", ylabel = "Landslide susceptibility",
 			title = "Landslide susceptibility vs Number of Trees")
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
@@ -520,7 +520,7 @@ def write():
 		with c1:
 			#flooding_map = combined_data[['neighborhood', 'SNAP_All_csv_Flood_Plain____lan']].copy()
 			plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv_Flood_Plain____lan', data = combined_data)
-			plot.set(xlabel = "Number of Trees (Normalized by Area)", ylabel = "Flooding susceptibility",
+			plot.set(xlabel = "Number of Trees (per Acre of land area)", ylabel = "Flooding susceptibility",
 			title = "Flooding susceptibility vs Number of Trees")
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
                         
@@ -608,28 +608,28 @@ def write():
 	with c1:
 		if stump_factor == "Population Density":
 			plot = sns.regplot(x = 'tree_count', y = 'Pop__2010', data = combined_stump)
-			plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Population Density",
+			plot.set(xlabel = "Number of Stumps/Vacant sites (per Acre of land area)", ylabel = "Population Density",
 			title = "Population Density vs Number of Stumps/Vacant sites")
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
 		elif stump_factor == "Crime Rate":
 			plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv__Part_1__Major_Cri', data = combined_stump)
-			plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Crime Rate(Normalized by Area)",
+			plot.set(xlabel = "Number of Stumps/Vacant sites (per Acre of land area)", ylabel = "Crime Rate(per Acre of land area)",
 			title = "Crime Rate vs Number of Stumps/Vacant sites")	
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
 		elif stump_factor == "Median Income":
 			plot = sns.regplot(x = 'tree_count', y = 'SNAP_All_csv_2009_Median_Income', data = combined_stump)
-			plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Median income",
+			plot.set(xlabel = "Number of Stumps/Vacant sites (per Acre of land area)", ylabel = "Median income",
 			title = "Median income vs Number of Stumps/Vacant sites")	
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
 
 		elif stump_factor == "Percentage of the Population Under Poverty":
 			plot = sns.regplot(x = 'tree_count', y = 'Est__Percent_Under_Poverty__201', data = combined_stump)
-			plot.set(xlabel = "Number of Stumps/Vacant sites (Normalized by Area)", ylabel = "Percentage population under poverty",
+			plot.set(xlabel = "Number of Stumps/Vacant sites (per Acre of land area)", ylabel = "Percentage population under poverty",
 			title = "Crime Rate vs Number of Stumps/Vacant sites")	
 			st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
@@ -641,4 +641,30 @@ def write():
 		planners should keep this in mind when deciding the urban tree scenery in the future. \
 		However, we should keep in mind that this is only a correlation, and to establish a more \
 		conclusive relationship, more studies and analyses need to be conducted. ")
-		
+
+	st.write(
+		"**What if we had trees in place of these stumps and vacant sites?**")
+	st.write("Given that there were 5270 stumps and vacant sites in Pittsburgh, "
+	         "we couldn't help but think about the immense benefits of planting trees in these spots.")
+	st.write("Though we are now aware that the Oak family of trees have very high overall benefits to mankind, "
+	         "it is not possible to plant Oak trees in all of these spots as some vacant sites are not big"
+	         " enough. Additionally, there are also a few vacant sites that aren't suitable for growing any "
+	         "trees as they are on in pits, wells, lack of sunlight, etc. "
+	         "Hence, amongst the vacant sites that could suuport the growth of tree, we first categorized them "
+	         "based on the height and width they could offer and then picked the best tree to be planted on that site."
+	         "While this was the case with vacant sites, fortuntely most stumps were in spots that supported the "
+	         "growth of large tress such Oak." )
+	st.write("Based on this analysis, we have calculated the benefits as shown below")
+	st.markdown(
+		"""
+        | **Site type** | **Count** | **Best Fit Tree Species** | **Overall Benefit in USD** |
+		| --- | --- | --- | --- |
+		| Stump | 1079 | Oak: Pin | 263366.49 |
+		| Vacant Site Small	 | 2418 | Pine: Scotch | 189738.06 |
+		| Vacant Site Medium | 365 | Tuliptree | 76032.31 |
+		| Vacant Site Large | 562 | Oak: Pin | 137175.14 |
+		| Vacant Site Not Suitable | 846 | NA | 0.0 |
+		""")
+
+	st.write("Hence, by undertaking this mission of replacing the stumps and vacant sites which offer"
+	         "no benefits to the residents, with trees the overall annual benefits would estimate to 0.66 million USD!")
