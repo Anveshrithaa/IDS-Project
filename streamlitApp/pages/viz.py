@@ -61,28 +61,31 @@ def write():
 			  )
 	fig.update_geos(fitbounds="locations", visible=False)
 	st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
+	st.write("Interestingly, we observe that there are clusters of neighborhoods with the same prevalent tree species.")
+	st.markdown(
+		"""
+        | **id** | **Neighborhoods in the cluster** | **Most prevalent species** |
+        | --- | --- | --- |
+        | 1 |  Terrace Village, North Oakland, Central Oakland, Squirrel Hill North, Squirrel Hill South, Point Breeze and Regent Square | London plane tree |
+        | 2 | Beechview, Brookline, Bon Air, Overbrook and Carrick neighborhoods | Maple: Norway |
+        | 3 | Strip District, Ginkgo, Central Business District, Bluff | Honeylocust: Thornless |
+        | 4 | Lower Lawrenceville, Bloomfield, Shadyside | Pear: Callery |
+        | 5 | Perry South, Fineview, Spring-Hill City View | Maple: Norway |
+        """
+	)
 
-	st.write("The honeylocust, also known as the thorny locust or thorny honeylocust, is a deciduous tree which is mostly found in the moist soil of river valleys. In the above map, we can clearly see that it is the honey locust species that is the most prevalent in the neighborhoods located on the banks of the Allegheny, Monongahela, and Ohio rivers.")
+	st.write("The most interesting cluster is that of the neighborhoods on the banks of the Allegheny, Monongahela, and Ohio rivers "
+	         "comprising the Strip district, the Central Business District, the South shore and the North shore. We see here that all these neighborhoods have the honeylocust trees in abundance. "
+	         "This is because the honeylocust, also known as the thorny locust or thorny honeylocust, is a deciduous tree which is mostly found in the moist soil of river valleys. ")
 
-	st.write(
-		"We also observe that there are clusters of neighborhoods that have the same most prevalent tree species. Some of these clusters include:")
+	st.write("Coming to the other clusters, we believe that the London plane tree and the Norway maple trees are widely prevalent due to their tolerance to poor, compacted soils and resistance to pollution which helps them thrive in these urban neighborhoods.")
 
 	"""
 	st.write("1. The Terrace Village, North Oakland, Central Oakland, Squirrel Hill North, Squirrel Hill South, Point Breeze and Regent Square neighborhoods all have the London plane tree as the most prevalent species.")
 	st.write("2. The Beechview, Brookline, Bon Air, Overbrook and Carrick neighborhoods all have the Maple: Norway as the most prevalent species.")
 	"""
 
-	st.markdown(
-		"""
-	    | **id** | **Neighborhoods in the cluster** | **Most prevalent species** |
-		| --- | --- | --- |
-		| 1 |  Terrace Village, North Oakland, Central Oakland, Squirrel Hill North, Squirrel Hill South, Point Breeze and Regent Square | London plane tree |
-		| 2 | Beechview, Brookline, Bon Air, Overbrook and Carrick neighborhoods | Maple: Norway |
-		| 3 | Strip District, Ginkgo, Central Business District, Bluff | Honeylocust: Thornless |
-		| 4 | Lower Lawrenceville, Bloomfield, Shadyside | Pear: Callery |
-		| 5 | Perry South, Fineview, Spring-Hill City View | Maple: Norway |
-		"""
-	)
+
 
 	# ----------- END:  Most popular Species vs Neighborhood -------------
 
