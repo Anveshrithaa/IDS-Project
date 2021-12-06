@@ -57,8 +57,7 @@ def write():
 	          labels={'neighborhood': 'Neighborhood',
 	                  'common_name': 'Tree species common name'},
 			  color_continuous_scale='Inferno',
-			   title='Most prevalent species in each Neighborhood' ,  
-			   height=700
+			   title='Most prevalent species in each Neighborhood'
 			  )
 	fig.update_geos(fitbounds="locations", visible=False)
 	st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
@@ -119,8 +118,7 @@ def write():
 			      labels={'neighborhood': 'Neighborhood',
 			              'count': 'Tree count'},
 				  color_continuous_scale= 'blues',
-				   title= str2 ,
-				   height=700,
+				   title= str2
 				  )
 	fig.update_geos(fitbounds="locations", visible=False)
 	fig.layout.template = None
@@ -146,8 +144,7 @@ def write():
 		                    labels={'neighborhood': 'Neighborhood',
 		                            'average_height': 'Average height(m)'},
 		                    color_continuous_scale='blues',
-		                    title='Average Tree Height across Neighborhood',
-		                    height=700
+		                    title='Average Tree Height across Neighborhood'
 		                    )
 		fig.update_geos(fitbounds="locations", visible=False)
 		st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
@@ -163,8 +160,7 @@ def write():
 		                    labels={'neighborhood': 'Neighborhood',
 		                            'average_width': 'Average width(m)'},
 		                    color_continuous_scale='blues',
-		                    title='Average Tree Width across Neighborhood',
-		                    height=700
+		                    title='Average Tree Width across Neighborhood'
 		                    )
 		fig.update_geos(fitbounds="locations", visible=False)
 		st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
@@ -429,5 +425,4 @@ def write():
 			"CO2 Benefits Dollar Value", "Overall Benefits Dollar Value"]], annot= True, fmt='.1f', xticklabels = True, \
 			yticklabels = True, cmap = 'Greens', norm=LogNorm())
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
-
 
