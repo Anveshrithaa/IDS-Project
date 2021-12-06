@@ -539,7 +539,7 @@ def write():
 		fig.layout.coloraxis.colorbar.title = "susceptibility"
 		st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
 
-		st.write("We do not see any correlation between the flooding susceptibility of a neighborohood and it's tree density. We believe that this is mainly due to other geographical features such as proximity to the rivers that primarily affect the flooding susceptibility of the neighborhoods.")
+		st.write("We do not see any correlation between the flooding susceptibility of a neighborhood and it's tree density. We believe that this is mainly due to other geographical features such as proximity to the rivers that primarily affect the flooding susceptibility of the neighborhoods.")
 
 	st.write("**Tree Stumps and Vacant Sites**")
 	st.write("In the tree dataset, there are data points for tree stumps and vacant sites of various sizes, \

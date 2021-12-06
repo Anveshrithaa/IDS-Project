@@ -39,6 +39,6 @@ def write():
 	st.write("- Are trees' benefits enjoyed equally by all the neighborhoods in Pittsburgh?")
 	st.write("- In Pittsburgh, is the tree density of a neighborhood correlated with its socio-economic status?")
 	st.write("- If so, how and why are they correlated?")
-	st.write("- Are some neighborhoods missing out on more potential benefits? For example, vacant sites that could be planted but not? If so, what are the reasons?")
+	st.write("- How much potential benefits of having trees are being missed out by having vacant sites that could be planted but are not?")
 	st.write("- Can we predict the tree density of a neighborhood using its socio-economic information?")
 	st.write("To answer these questions, we performed neighborhood-level analysis and created interactive visualizations to get better insights.")

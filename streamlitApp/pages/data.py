@@ -36,7 +36,7 @@ def write():
 
 	st.markdown(
 	        """
-	        | **id** | **id** | **type** | **comments** |
+	        |  | **field name** | **type** | **comments** |
 	| --- | --- | --- | --- |
 	| 1 | id | text | 	|
 	| 2 | address_number | text | |

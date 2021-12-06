@@ -44,7 +44,7 @@ def write():
 
 	# ----------- BEGIN:  Most popular Species vs Neighborhood -------------
 
-	st.header("The most prevalent species in each neighborhood")
+	st.header("Most Prevalent Species in each Neighborhood")
 	groupBySpeciesAndNeighborhood = df_trees.groupby(['neighborhood','common_name'])['id'].count()
 	groupBySpeciesAndNeighborhood = groupBySpeciesAndNeighborhood.to_frame().reset_index()
 	prevalent_species = groupBySpeciesAndNeighborhood.loc[groupBySpeciesAndNeighborhood.groupby(['neighborhood'])['id'].idxmax()].reset_index(drop=True)
@@ -426,3 +426,4 @@ def write():
 			yticklabels = True, cmap = 'Greens', norm=LogNorm())
 		st.pyplot(fig, use_container_width=True, sharing='streamlit')
 
+	st.write("We observed that tree species of the same family also widely differed in the tree benefits provided.")
