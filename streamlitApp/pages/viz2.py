@@ -44,8 +44,7 @@ def write():
 	st.write("According to the non-profit American Forests, trees are more than scenery; instead, they are \
 		 critical infrastructure that every person in every neighborhood deserves. In fact, tree-equality is \
 		 a topic included in President Biden and the Democrat’s 3.5-trillion dollar spending bill proposal. \
-		 Within the bill, approximately 3 billion dollars will be spent to improve tree equality \
-		 (source: https://nypost.com/2021/09/27/biden-dems-3-5t-bill-includes-money-for-tree-equity-bias-training/). \
+		 Within the bill, approximately 3 billion dollars will be spent to improve tree equality [1]. \
 		 The money will be used for “tree planting and related activities to increase community tree canopy and \
 		 associated societal and climate co-benefits, with a priority for projects that increase tree equity.” \
 		 This raises the questions: what is the extent of tree equality in Pittsburgh? Are trees' benefits enjoyed \
