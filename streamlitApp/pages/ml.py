@@ -46,8 +46,8 @@ def write():
 	pipe = pickle.load(open(model_file,"rb"))
 	col1, _, col2, _ = st.columns([6, 1, 4, 1])
 	with col1:
-		per_bachelor = st.slider('Percentage of Individuals with Bachelors Degrees:', 0.0, 100.0, 10.0)
 		per_commercial = st.slider('Percentage of Commercial Area:', 0.0, 100.0, 15.0)
+		per_bachelor = st.slider('Percentage of Individuals with Bachelors Degrees:', 0.0, 100.0, 10.0)
 		per_master = st.slider('Percentage of Individuals with Masters Degrees:', 0.0, 100.0, 5.0)
 		median_home_value = st.number_input('Median Home Value ($):', min_value = 0.0, value = 10000.0)
 		pop_density = st.number_input('Number of Individuals per Square Mile:', min_value = 0.0, value = 2000.0)
@@ -58,6 +58,11 @@ def write():
 		st.subheader(tree_density)
 		st.caption("Trees per Square Mile")
 
-
+	st.write("We observe that changing the values for different factors changes the tree density (trees per square mile).")
+	st.write("Increasing the percentage of commercial area results in a corresponding increase in the tree density. This direct relationship could be the result of urban greening, which is defined as public landscaping and urban forestry projects which create mutually beneficial relations between individuals living in the city and their environments.")
+	st.write("Moreover, an increase in the percentage of individuals with a Bachelors degree also results in a corresponding increase in the tree density. This could be a result of increased awareness and understanding of the interaction between individuals and their environments.")
+	st.write("In contrast, we observe that an increase in the percentage of individuals with a Masters degree results in a corresponding decrease in tree density. This feature of the model is definitely interesting given that a postive correlation is observed between the percentage of individuals with a Masters degree and the tree density across neighborhoods. Moreover, we observe that increasing the percentage of individuals with a Masters degree beyond a certain threshold, results in the tree density being predicted as zero. This could be due to the fact that the range of percentage of individuals with Masters degree ranged from 0.0% - 50% with an average of 9.7%. Thus, the model was only able to learn from data in this range.")
+	st.write("Additionally, we observe that an increase in the median home value corresponds to an increase in the tree density. This could be a result of the aesthetic appeal of trees which could raise median home values. Moreover, the environmental benefits of trees could make the home more pleasant to live in thereby raising the median home value.")
+	st.write("We also observe that increasing the population density results in a corresponding increase in the predicted tree density. Given all the environmental benefits of trees, it is possible that most individuals prefer to live in areas with high tree densities, thereby leading to the positive correlation between population and tree density.")
 
 	
