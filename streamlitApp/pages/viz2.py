@@ -68,10 +68,12 @@ def write():
 	# factor = st.radio("Select a factor", ('Median Home Value', 'Population Density', 'Industrial Area', \
 	# 	'Commercial Area', 'Education', 'Crime Rate'))
 	st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
+	path = os.path.dirname(__file__)
+	
 
-	complete_data = pd.read_csv("cleaned_data/neighborhood_features_data.csv")
+	complete_data = pd.read_csv(path+"/cleaned_data/neighborhood_features_data.csv")
 
-	raw_df_trees = pd.read_csv("cleaned_data/cleaned_tree_data_5.csv", encoding="ISO-8859-1", low_memory=False)
+	raw_df_trees = pd.read_csv(path+"/cleaned_data/cleaned_tree_data_5.csv", encoding="ISO-8859-1", low_memory=False)
 	df_trees = raw_df_trees[(raw_df_trees['common_name'] != 'Stump') & 
 						   (raw_df_trees['scientific_name'] != 'Stump') &
 						   (raw_df_trees['common_name'] != 'Vacant Site Small') & 
@@ -106,7 +108,7 @@ def write():
 																"overall_benefits_dollar_value": "sum"})
 
 
-	neighborhood_data = pd.read_csv("cleaned_data/neighborhood_data.csv", encoding="ISO-8859-1", dtype='unicode')
+	neighborhood_data = pd.read_csv(path+"/cleaned_data/neighborhood_data.csv", encoding="ISO-8859-1", dtype='unicode')
 
 	neighborhood_data_area = neighborhood_data[['SNAP_All_csv_Neighborhood', 'Neighborhood_2010_AREA',
 												'Neighborhood_2010_ACRES', 'Pop__2010', 'SNAP_All_csv__Part_1__Major_Cri',
@@ -227,7 +229,7 @@ def write():
 		more benefits from trees?")
 	st.write("Here, we compare the chloropleth maps of the tree density and the tree benefits. By selecting the tree benefit category, we can compared the tree density and that specific tree benefit. A short analysis is provided below.")
 
-	combined_data_n = pd.read_csv("cleaned_data/tree_density_data.csv")
+	combined_data_n = pd.read_csv(path+"/cleaned_data/tree_density_data.csv")
 
 	info = combined_data_n.drop(labels = ['Unnamed: 0', 'Neighborhood_2010_AREA', 'Neighborhood_2010_ACRES'], axis = 1)
 
