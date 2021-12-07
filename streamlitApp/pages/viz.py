@@ -76,7 +76,7 @@ def write():
 
 	st.write("")
 	st.write("The most interesting cluster is that of the neighborhoods on the banks of the Allegheny, Monongahela, and Ohio rivers "
-	         "comprising the Strip district, the Central Business District, the South shore and the North shore. We see here that all these neighborhoods have the honeylocust trees in abundance. "
+	         "comprising the Strip district, the Central Business District, the South shore and the North shore neighborhoods. We see here that all these neighborhoods have the honeylocust trees in abundance. "
 	         "This is because the honeylocust, also known as the thorny locust or thorny honeylocust, is a deciduous tree which is mostly found in the moist soil of river valleys. ")
 
 	st.write("Coming to the other clusters, we believe that the London plane tree and the Norway maple trees are widely prevalent due to their tolerance to poor, compacted soils and resistance to pollution which helps them thrive in these urban neighborhoods.")
