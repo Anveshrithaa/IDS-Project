@@ -41,7 +41,7 @@ def write():
 
 	sns.set()
 	path = os.path.dirname(__file__)
-	df_trees = pd.read_csv(path+"/cleaned_data/cleaned_tree_data_5.csv",
+	df_trees = pd.read_csv("streamlitApp/cleaned_data/cleaned_tree_data_5.csv",
 	                       encoding="ISO-8859-1", low_memory=False)
 
 	# ----------- BEGIN:  Most popular Species vs Neighborhood -------------
@@ -202,7 +202,7 @@ def write():
 	st.write("Due to the aesthetic, cooling and other invaluable benefits the presence of trees drives up the property value in a given neighborhood.")
 	"""
 
-	df_trees = pd.read_csv(path+"/cleaned_data/cleaned_tree_data_5.csv", encoding="ISO-8859-1", low_memory=False)
+	df_trees = pd.read_csv("streamlitApp/cleaned_data/cleaned_tree_data_5.csv", encoding="ISO-8859-1", low_memory=False)
 	tree_stat = df_trees.groupby(["common_name"]).agg(["count", "mean"]).reset_index()
 	tree_stat = tree_stat[tree_stat["id"]["count"] >= 10]
 
