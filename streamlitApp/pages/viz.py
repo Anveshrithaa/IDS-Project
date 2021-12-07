@@ -40,7 +40,8 @@ def write():
 	st.header("Exploratory Data Analysis")
 
 	sns.set()
-	df_trees = pd.read_csv("cleaned_data/cleaned_tree_data_5.csv",
+	path = os.path.dirname(__file__)
+	df_trees = pd.read_csv(path+"/cleaned_data/cleaned_tree_data_5.csv",
 	                       encoding="ISO-8859-1", low_memory=False)
 
 	# ----------- BEGIN:  Most popular Species vs Neighborhood -------------
