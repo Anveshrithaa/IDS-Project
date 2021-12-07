@@ -20,7 +20,7 @@ def write():
     unsafe_allow_html=True)
     st.video("https://youtu.be/UXj5W-qrotw")
     st.subheader("Github project repository")
-    st.write("https://github.com/prekshaupatel/IDS-Project")
+    st.write("https://github.com/Anveshrithaa/IDS-Project")
 
 
 
