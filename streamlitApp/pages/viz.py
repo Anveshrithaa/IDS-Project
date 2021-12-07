@@ -103,7 +103,7 @@ def write():
 	selected_spec = st.selectbox('Select a Species:',df_trees_thresh1.common_name)
 	df_spec = df_trees.groupby(['common_name', 'neighborhood'])['id'].count()
 	df_spec = df_spec.to_frame().reset_index()
-	df_spec = df_spec.loc[df_spec['common_name'] == selected_spec]
+	df_spec = df_spec.loc[df_spec['common_name'] == selected_spec] 
 	#df_spec['percent'] = ((df_spec['id']/df_spec['id'].sum()) * 100)
 	df_spec = df_spec.rename(columns={"id": "count"})
 
