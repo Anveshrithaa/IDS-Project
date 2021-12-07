@@ -127,6 +127,11 @@ def write():
 	fig.update_geos(fitbounds="locations", visible=False)
 	fig.layout.template = None
 	st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
+	st.write("")
+	st.write("Through this visualization, we can confirm that the honeylocust trees are more prevalent "
+	         "in the neighborhoods closer to the rivers. The Norway Maple trees and London plane trees "
+	         "are more prevalent in the residential neighborhoods of Squirrel Hill and Highland park as "
+	         "compared to the neighborhoods downtown.")
 
 	# ----------- END:  Species vs Neighborhood -------------
 
@@ -168,6 +173,9 @@ def write():
 		                    )
 		fig.update_geos(fitbounds="locations", visible=False)
 		st.plotly_chart(fig, use_container_width=True, sharing='streamlit')
+
+	st.write("Given that the Honeylocust trees are much shorter than London plane trees and Norway maple trees, "
+	         "we do observe that the average tree height in the neighborhoods closer to the rivers is lower. ")
 	st.write(
 		"While there seems to be a weak positive correlation between the average height and average width (neighborhoods with tall trees tend to have higher average tree width), this can't be considered as a strong correlation. A strange observation is that the neighborhood 'Hays' has the highest average tree height in Pittsburgh. However, it has one of the lowest average tree width in Pittsburgh. Intrigued, we \
 		looked into this strange observation more deeply and found out that there is actually only one tree datapoint for Hays neighborhood. This observation therefore may not be representative. ")
@@ -372,7 +380,7 @@ def write():
 
 
 	st.header("Tree-family Benefits and Intra-group Comparison")
-	st.write("After examining the tree species specific benefits, we observed that certain tree families exhibited similar benefits. To understand the similarities and differences between similar tree species we group the species by tree families and analyze the benefits of the tree species within a tree family.")
+	st.write("After examining the tree species specific benefits, we observed that there were multiple species from the Oak family that provided similar benefits. To understand the similarities and differences between similar tree species we group the species by tree families and analyze the benefits of the tree species within a tree family.")
 	tree_family = st.radio("Select a tree-family", ('Oak', 'Maple', 'Elm', 'Ash','Magnolia', 'Beech'))
 	st.write('<style>div.row-widget.stRadio > div{flex-direction:row;}</style>', unsafe_allow_html=True)
 
