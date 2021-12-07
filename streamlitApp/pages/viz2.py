@@ -649,7 +649,7 @@ def write():
 	         "it is not possible to plant Oak trees in all of these spots as some vacant sites are not big"
 	         " enough. Additionally, there are also a few vacant sites that aren't suitable for growing any "
 	         "trees as they are in pits, wells, lack of sunlight, etc. "
-	         "Hence, amongst the vacant sites that could suuport the growth of tree, we first categorized them "
+	         "Hence, amongst the vacant sites that could support the growth of tree, we first categorized them "
 	         "based on the height and width they could offer and then picked the best tree to be planted on that site. "
 	         "While this was the case with vacant sites, fortunately most stumps were in spots that supported the "
 	         "growth of large tress such Oak." )
@@ -667,4 +667,4 @@ def write():
 
 	st.write("")
 	st.write("Hence, by undertaking this mission of replacing the stumps and vacant sites which offer"
-	         "no benefits to the residents, with trees the overall annual benefits would estimate to USD 666312!")
+	         "no benefits to the residents, with trees the overall annual benefits would estimate to $666,312 USD!")
