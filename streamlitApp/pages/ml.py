@@ -42,7 +42,7 @@ def write():
 	st.table(df)
 	st.write("We standardized the data and fit a Ridge Regression Model (L1 regularization) on the data. We used 6-fold cross validation to validate the model. We observed a 0.59 R² score on the training data and a 0.33 R² score on the evaluation data averaged across all the folds. The results of training the model indicated a weak relationship between the top-5 most correlated socioeconomic factors and tree density.\n")
 	st.write("To view the results of the model, enter the values for the following predictor variables to get the predicted tree density value:")
-	model_file = "model.pkl"
+	model_file = "https://github.com/Anveshrithaa/IDS-Project/blob/main/streamlitApp/pages/model.pkl"
 	pipe = pickle.load(open(model_file,"rb"))
 	col1, _, col2, _ = st.columns([6, 1, 4, 1])
 	with col1:
