@@ -3,8 +3,8 @@ import streamlit as st
 #from pages import home
 
 def write():
-	st.header("Video Presentation")
-	st.markdown(
+    st.subheader("Video Presentation")
+    st.markdown(
     """
     <style>
     .reportview-container {
@@ -18,4 +18,10 @@ def write():
     </style>
     """,
     unsafe_allow_html=True)
+    st.video("https://youtu.be/UXj5W-qrotw")
+    st.subheader("Github project repository")
+    st.write("https://github.com/prekshaupatel/IDS-Project")
+
+
+
 	
