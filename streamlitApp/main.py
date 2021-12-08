@@ -1,5 +1,5 @@
 import streamlit as st
-
+ 
 from pages import home, data, viz, viz2, ml, video, ref
 st.sidebar.image: st.sidebar.image("https://www.seekpng.com/png/detail/83-830036_neurogenomics-laboratory-carnegie-mellon-university-logo-png.png", use_column_width=True)
 st.sidebar.title('Pittsburgh Trees Analysis')
