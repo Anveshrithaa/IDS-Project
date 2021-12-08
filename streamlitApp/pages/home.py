@@ -3,7 +3,7 @@ import streamlit as st
 #from pages import home
 
 def write():
-	st.title("Pittsburgh Trees Analysis")
+	st.title("Pittsburgh Tree Analysis")
 
 	st.markdown(
     """
